@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this geometry, please cite it as below."
+authors:
+  - family-names: "Loehrmann"
+    given-names: "Hagen"
+title: "HexaHelix Stellarator: A 6-Fold Interlaced Coil Topology"
+version: 1.0.0
+date-released: 2025-12-03
+url: "https://github.com/Haegar1601/hexa-helix-stellarator"
+license: CERN-OHL-W-2.0
