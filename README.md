@@ -100,6 +100,6 @@ To ensure this concept remains accessible for scientific advancement, this proje
 If you use this topology in your research, please cite this repository.
 
 **Author:** Hagen Loehrmann
-**Project Link:** [Link to your GitHub Repo]
+**Project Link:** https://github.com/Haegar1601/hexa-helix-stellarator
 
 *Created with the assistance of Gemini and Claude AI.*
