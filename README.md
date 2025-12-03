@@ -50,7 +50,7 @@ $$r(t) = a \cdot [1 + \epsilon \cdot \sin(6\phi + 2\delta_h)]$$
 
 ## 📸 Visualization
 
-*(Please run the simulation in `/code` to see the 3D structure)*
+*(Please run the simulation in `/simulation` to see the 3D structure)*
 
 The simulation reveals:
 1.  **Closed Topology:** Formation of a toroidal cage without visible loss cones.
