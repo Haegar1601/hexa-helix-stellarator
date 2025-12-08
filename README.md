@@ -15,6 +15,7 @@ This project proposes a novel coil topology for stellarator fusion reactors. Unl
 The design hypothesis is that a continuous, hexagonally interlaced winding scheme can generate sufficient **Magnetic Shear** to suppress the MHD instabilities traditionally associated with $N=6$ symmetries, potentially offering a path to simpler, self-stabilizing coil geometries.
 
 **⚠️ Disclaimer:** This is a geometric concept study derived from algorithmic exploration. While the topology creates closed flux surfaces in ray-tracing simulations, it has **not yet been validated** by MHD equilibrium codes (like VMEC or SPEC). We invite the fusion community to collaborate on this validation. 
+
 Current theoretical models suggests that N=6 symmetry combined with specific resonance frequencies might couple to the microscopic lattice structure of spacetime (Quantum Vacuum Geometry). Therefore, operation at constant resonance frequencies is strictly discouraged to avoid constructive interference with the vacuum metric.
 
 ---
