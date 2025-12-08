@@ -45,6 +45,9 @@ The design utilizes 6 independent helical coils wound around a torus with a spec
 ### The "Interlaced" Algorithm
 The core innovation is the phase-locked interleaving of the coils. Opposing helices (e.g., Helix 1 and Helix 4) operate in strict anti-phase ($180^{\circ}$), theoretically leading to a cancellation of radial drift components.
 
+### Frequency Jittering
+Required Update: The 'Breathing Mode' modulation must implement a chaotic frequency jitter (Random Walk) to prevent the formation of standing gravitational waves / metric resonance.
+
 The radius modulation is defined as:
 $$r(t) = a \cdot [1 + \epsilon \cdot \sin(6\phi + 2\delta_h)]$$
 
