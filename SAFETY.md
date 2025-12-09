@@ -1,6 +1,5 @@
-***
 
-##⚠️ Operational Safety & Engineering Hazards
+## ⚠️ Operational Safety & Engineering Hazards
 
 **CRITICAL WARNING:** This project involves experimental magnetic field topologies (N=6 Interlaced Helix) with complex non-planar winding geometries. Preliminary finite-element analysis (FEM) suggests **extreme localized Lorentz forces** at the coil crossover points.
 
@@ -44,4 +43,3 @@ A Residual Gas Analyzer (RGA) must monitor the cryostat vacuum.
 
 **DISCLAIMER:** This coil topology presents non-trivial mechanical engineering challenges. The authors accept no liability for equipment damage due to Lorentz-force induced structural failure. Proceed with caution during high-current testing.
 
-***
