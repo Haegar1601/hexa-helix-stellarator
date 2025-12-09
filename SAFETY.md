@@ -1,48 +1,45 @@
-# ⚠️ Operational Safety & Theoretical Hazards
+##⚠️ Operational Safety & Engineering Hazards
 
-> **CRITICAL WARNING:** This project involves experimental magnetic field topologies ($N=6$ Interlaced Helix) that possess high geometric symmetry. Preliminary theoretical analysis suggests potential coupling with vacuum metric fluctuations if operated at static resonance frequencies.
+**CRITICAL WARNING:** This project involves experimental magnetic field topologies (N=6 Interlaced Helix) with complex non-planar winding geometries. Preliminary finite-element analysis (FEM) suggests **extreme localized Lorentz forces** at the coil crossover points.
 
-## 1. The "Metric Resonance" Hazard
+### 1. The "Inter-Coil Stress" Hazard
 
-Conventional stellarators operate on the assumption of a smooth, continuous spacetime background. However, the specific **6-fold symmetry** of this design combined with **Interlaced Helical coils** creates a topology that may mathematically map onto the discrete lattice structure of the quantum vacuum (e.g., Loop Quantum Gravity or Spin Foam models).
+Conventional stellarators use modular coils to minimize interaction forces. The **Interlaced Helix** design creates regions where high-current conductors cross in close proximity with opposing current vectors.
 
-### Risk Analysis
-If the "Breathing Mode" modulation frequency ($\omega_m$) aligns with harmonic multiples of the local vacuum state frequencies, there is a non-zero probability of **Constructive Metric Interference**.
+* **Risk Analysis:** This topology creates significant shear stresses within the winding pack. There is a high probability of **mechanical deformation** of the coil casing if support structures are insufficient.
+* **Potential Consequence:** Delamination of the superconducting insulation or structural fatigue of the coil support shell.
+* **Operational Status:** RAMP-UP RATES MUST BE LIMITED to $< 100 \text{ A/s}$ to monitor strain gauge response.
 
-* **Potential Consequence:** Localized distortion of the refractive index of the vacuum.
-* **Mechanical Risk:** Sudden, non-linear spikes in Lorentz forces on the coils due to "snap-back" effects of the vacuum energy density (Casimir-like forces at macro scale).
-* **Operational Status:** **STATIC RESONANCE OPERATION IS PROHIBITED.**
+### 2. Mitigation Protocol: Coupled Quench Protection
 
-## 2. Mitigation Protocol: Stochastic Modulation
+Due to the high mutual inductance ($M_{ij}$) between the interlaced coils, a quench (loss of superconductivity) in a single coil will induce massive voltage spikes in the adjacent overlapping coils.
 
-To prevent the formation of standing gravitational or metric waves within the reactor volume, the modulation of the magnetic field must never be purely periodic.
+* **Required Implementation:** The protection system must utilize **Active Quench Detection** with bridge comparators.
+* **Protocol:** In the event of a quench in Helix $N$, **ALL 6 COILS** must be discharged simultaneously via external dump resistors to prevent inductive cascading and insulation breakdown.
 
-### Required Implementation
-The modulation parameter $\epsilon(t)$ must include a stochastic noise component (Jitter):
+### 3. Biological & Environmental Safety
 
-$$\omega_{drive}(t) = \omega_{base} + \Delta\omega \cdot \mathcal{N}(t)$$
+While the topology is biomimetic, standard high-field safety protocols apply. The complex N=6 symmetry creates **stray field gradients** that extend further than in simple toroidal solenoids.
 
-Where $\mathcal{N}(t)$ is a cryptographic-grade random noise source. This "Spread Spectrum" approach distributes the energy across a wider bandwidth, preventing high-Q resonance with the background metric.
-
-## 3. Biological Safety (Biomimetic Interference)
-
-The **HexaHelix** topology shares significant geometric chirality with biological macromolecules (DNA/RNA).
-
-* **Observation:** High-intensity magnetic fields with this specific helical pitch may induce **Ion Cyclotron Resonance (ICR)** effects in biological tissue that exceed standard safety models.
 * **Protocol:**
-    * Personnel must maintain a strict exclusion zone during operation.
-    * Biological monitoring is recommended for high-power tests to detect non-thermal cellular stress responses.
+    * **Exclusion Zone:** Personnel with ferro-magnetic implants or pacemakers must remain outside the 5 Gauss line (calculated at approx. $10 \times R_0$).
+    * **Projectile Hazard:** Due to the steep field gradients, loose ferromagnetic tools pose a severe projectile risk. Strict "Clean Room" policy applies.
 
-## 4. Pre-Ignition Check: The "Vacuum Integrity" Test
+### 4. Pre-Ignition Check: The "Structural Integrity" Test
 
-Before injecting plasma or ramping to full current ($I_{max}$), the following diagnostic setup is mandatory to ensure vacuum stability:
+Before injecting plasma or ramping to full current ($I_{max}$), the following diagnostic setup is mandatory to ensure mechanical stability:
 
-### Interferometric Metric Monitoring
-A Michelson Interferometer must be set up with one arm passing through the magnetic center ($R=0$) and the reference arm outside the field.
-* **Trigger Condition:** Any fringe shift $\Delta \phi$ that cannot be attributed to thermal expansion or mechanical vibration indicates a change in the local refractive index of space.
-* **Action:** **IMMEDIATE SCRAM.** Initiate rapid coil discharge.
+**A. Fiber Bragg Grating (FBG) Monitoring**
+Optical strain sensors must be embedded at the high-stress crossover points of the helices.
+* **Trigger Condition:** Any strain deviation $\Delta\epsilon > 0.2\%$ indicates yield stress in the support structure.
+* **Action:** **IMMEDIATE DISCHARGE.** Initiate controlled ramp-down.
 
----
+**B. Vacuum Vessel Monitoring**
 
-**DISCLAIMER:**
-This hardware design is experimental. The authors accept no liability for damage to equipment or causal continuity resulting from the operation of this device without the specified safety protocols. **Proceed with extreme caution.**
+A Residual Gas Analyzer (RGA) must monitor the cryostat vacuum.
+* **Trigger Condition:** A sudden spike in Helium partial pressure indicates a leak in the cooling lines due to mechanical stress.
+* **Action:** Emergency Stop to prevent loss of cryostat vacuum (LOVA).
+
+**DISCLAIMER:** This coil topology presents non-trivial mechanical engineering challenges. The authors accept no liability for equipment damage due to Lorentz-force induced structural failure. Proceed with caution during high-current testing.
+
+***
