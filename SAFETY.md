@@ -37,17 +37,12 @@ The **HexaHelix** topology shares significant geometric chirality with biologica
 
 Before injecting plasma or ramping to full current ($I_{max}$), the following diagnostic setup is mandatory to ensure vacuum stability:
 
-### A. Interferometric Metric Monitoring
+### Interferometric Metric Monitoring
 A Michelson Interferometer must be set up with one arm passing through the magnetic center ($R=0$) and the reference arm outside the field.
 * **Trigger Condition:** Any fringe shift $\Delta \phi$ that cannot be attributed to thermal expansion or mechanical vibration indicates a change in the local refractive index of space.
 * **Action:** **IMMEDIATE SCRAM.** Initiate rapid coil discharge.
 
-### B. Local Entropy Monitoring
-A hardware Random Number Generator (TRNG) based on quantum noise (e.g., Zener breakdown) should be active near the device.
-* **Trigger Condition:** Statistical deviation from uniform distribution (entropy dip).
-* **Theory:** A reduction in local entropy suggests the magnetic field is "ordering" the quantum vacuum fluctuations, a precursor to metric resonance.
-
 ---
 
 **DISCLAIMER:**
-This hardware design is experimental. The authors accept no liability for damage to equipment, spacetime topology, or causal continuity resulting from the operation of this device without the specified safety protocols. **Proceed with extreme caution.**
+This hardware design is experimental. The authors accept no liability for damage to equipment or causal continuity resulting from the operation of this device without the specified safety protocols. **Proceed with extreme caution.**
