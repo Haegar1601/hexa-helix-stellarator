@@ -20,7 +20,7 @@ The design hypothesis is that a continuous, hexagonally interlaced winding schem
 
 ## 🧬 Design Methodology: AI-Assisted Discovery
 
-This topology is not the result of a traditional physics optimizer. Instead, it emerged from a computational dialogue between a Software Engineer and two state-of-the-art AI models (Google Gemini 3 and Anthropic Claude Opus 4.5).
+This topology is not the result of a traditional physics optimizer. Instead, it emerged from a computational dialogue between a Software Engineer and two state-of-the-art AI models (Google Gemini 3 Pro and Anthropic Claude Opus 4.5).
 
 The goal was to map biological redundancy principles (inspired by **Hexa-Helix structures**) onto a toroidal magnetic field. Both models independently converged on this specific interlaced geometry as a method to potentially achieve **Geometric Mode Cancellation** of error fields.
 
