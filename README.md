@@ -12,17 +12,24 @@
 
 This project proposes a novel coil topology for stellarator fusion reactors. Unlike conventional modular designs (e.g., Wendelstein 7-X, $N=5$), this concept investigates a **6-fold ($N=6$) "Interlaced Helix" symmetry**.
 
-
-
 The design hypothesis is that a continuous, hexagonally interlaced winding scheme can generate sufficient **Magnetic Shear** to suppress the MHD instabilities traditionally associated with $N=6$ symmetries, potentially offering a path to simpler, self-stabilizing coil geometries.
 
-*⚠️ Disclaimer:** This is a geometric concept study derived from algorithmic exploration. While the topology creates closed flux surfaces in ray-tracing simulations, it has **not yet been validated** by MHD equilibrium codes (like VMEC or SPEC). We invite the fusion community to collaborate on this validation.
+**⚠️ Disclaimer:** This is a geometric concept study derived from algorithmic exploration. While the topology creates closed flux surfaces in ray-tracing simulations, it has **not yet been validated** by MHD equilibrium codes (like VMEC or SPEC). We invite the fusion community to collaborate on this validation.
 
 ## 🧬 Design Methodology: AI-Assisted Discovery
 
-This topology is not the result of a traditional physics optimizer. Instead, it emerged from a computational dialogue between a Software Engineer and two state-of-the-art AI models (Google Gemini 3 Pro and Anthropic Claude Opus 4.5).
+This topology is not the result of a traditional physics optimizer. Instead, it emerged from a computational dialogue between a Software Engineer and two state-of-the-art AI models.
 
-The goal was to map biological redundancy principles (inspired by **Hexa-Helix structures**) onto a toroidal magnetic field. Both models independently converged on this specific interlaced geometry as a method to potentially achieve **Geometric Mode Cancellation** of error fields.
+The goal was to map biological redundancy principles onto a toroidal magnetic field. Both models independently converged on this specific interlaced geometry.
+
+### The "Kelvin Packing" Hypothesis
+
+A key factor in the topology's selection was the correlation with the **Kelvin Cell structure** (Tetrakaidecahedron). Lord Kelvin proposed this bitruncated cubic honeycomb as the optimal partition of 3D space with minimal surface area.
+
+
+
+* **Design Rationale:** The AI algorithm utilized the Kelvin-partitioning of the toroidal volume as a guide for the coil winding path. By aligning the magnetic field periodicity with the hexagonal faces of this theoretical lattice, the design aims to **minimize flux surface distortion** and optimize volumetric field efficiency.
+* **Note:** This utilizes the Kelvin Cell purely as a geometric basis for packing efficiency, drawing on the structural stability inherent in these minimal-surface lattices.
 
 ## ⚙️ Technical Specifications
 
@@ -46,21 +53,31 @@ The core innovation is the phase-locked interleaving of the coils. Opposing heli
 The radius modulation along the toroidal angle $\phi$ is defined as:
 $$r(\phi) = a \cdot [1 + \epsilon \cdot \sin(6\phi + 2\delta_h)]$$
 
-## 📸 Visualization
+## ⚠️ Operational Safety & Engineering Hazards
 
-*(Please run the simulation in `/simulation` to see the 3D structure)*
+**CRITICAL WARNING:** This project involves experimental magnetic field topologies with complex non-planar winding geometries. Preliminary finite-element analysis (FEM) suggests **extreme localized Lorentz forces** at the coil crossover points.
 
-The simulation reveals:
-* **Closed Topology:** Formation of a toroidal cage without visible loss cones in preliminary ray-tracing.
-* **Shear:** Visual confirmation of high torsion in the field lines.
-* **Destructive Nodes:** Regions where field components from opposing helices geometrically intersect.
+### 1. The "Inter-Coil Stress" Hazard
 
-## 📂 Repository Structure
+Conventional stellarators use modular coils to minimize interaction forces. The **Interlaced Helix** design creates regions where high-current conductors cross in close proximity with opposing current vectors.
 
-* `/paper`: Contains the Whitepaper "Geometric Stabilization via 6-Fold Interlaced Symmetry" (PDF).
-* `/simulation`: The interactive 3D Web-Simulation (HTML/JS/Three.js).
-* `/cad`: 3D Models of the coil geometry (STEP/STL files) for import into physics codes. **(Add your files here)**
-* `/src`: Generation scripts for the geometry.
+* **Risk Analysis:** This topology creates significant shear stresses within the winding pack. There is a high probability of **mechanical deformation** of the coil casing if support structures are insufficient.
+* **Operational Status:** RAMP-UP RATES MUST BE LIMITED to $< 100 \text{ A/s}$ to monitor strain gauge response.
+
+### 2. Mitigation Protocol: Coupled Quench Protection
+
+Due to the high mutual inductance ($M_{ij}$) between the interlaced coils, a quench (loss of superconductivity) in a single coil will induce massive voltage spikes in the adjacent overlapping coils.
+
+* **Protocol:** In the event of a quench in Helix $N$, **ALL 6 COILS** must be discharged simultaneously via external dump resistors to prevent inductive cascading and insulation breakdown.
+
+### 3. Pre-Ignition Check: The "Structural Integrity" Test
+
+Before injecting plasma, the following diagnostic setup is mandatory to ensure mechanical stability:
+
+**Fiber Bragg Grating (FBG) Monitoring**
+Optical strain sensors must be embedded at the high-stress crossover points of the helices.
+* **Trigger Condition:** Any strain deviation $\Delta\epsilon > 0.2\%$ indicates yield stress in the support structure.
+* **Action:** **IMMEDIATE DISCHARGE.** Initiate controlled ramp-down.
 
 ## 🚀 Getting Started
 
@@ -76,14 +93,10 @@ We explicitly invite physicists to export the coil data from `/cad` and run it t
 
 ## 📜 License
 
-To ensure this concept remains accessible for scientific advancement, this project is released under Open Source licenses:
 * **Hardware/Geometry Designs:** Released under the CERN Open Hardware Licence Version 2 - Weakly Reciprocal (CERN-OHL-W-2.0).
 * **Software/Simulation Code:** Released under the MIT License.
 
 ## ✉️ Contact & Citation
 
-If you use this topology in your research, please cite this repository.
 **Author:** Hagen Loehrmann
 **Project Link:** [https://github.com/Haegar1601/hexa-helix-stellarator](https://github.com/Haegar1601/hexa-helix-stellarator)
-
-***
