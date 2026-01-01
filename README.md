@@ -229,7 +229,7 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 |----------|-------------|
 | [Technical Memorandum](Technical%20Memorandum.md) | Mathematical proof of dual-representation framework (Geometric vs. Spectral approach) |
 | [Engineering Spec](docs/engineering/HexaHelix-BNC-Spec-Draft.html) | B-N-C Metamaterial specifications |
-| [Simulation](Simulation%20(Open%20Source)-Simulation (Open Source)-HexaHelix.html) | Interactive 3D visualization |
+| [Simulation](https://github.com/Haegar1601/hexa-helix-stellarator/blob/main/simulation/Simulation%20(Open%20Source)-HexaHelix.html) | Interactive 3D visualization |
 
 ---
 
