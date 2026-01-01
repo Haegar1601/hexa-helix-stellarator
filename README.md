@@ -148,11 +148,12 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 
 This project goes beyond geometric theory. We are exploring scalable manufacturing pathways using **B-N-C doped Metamaterials**.
 
-📄 View the Engineering Specification: [HexaHelix B-N-C Spec Sheet](docs/engineering/HexaHelix-BNC-Spec-Draft.html)
+📄 View the Engineering Specification: [HexaHelix B-N-C Spec Sheet](docs/engineering)
 
 - **Level 3 Pathway:** Transition from wound coils to 3D-printed porous metamaterials.
 - **Neutron Hardness:** Usage of Boron-11 ($^{11}B$) for fusion compatibility.
 - **Industrial Partner Target:** Specifications tailored for HTS thin-film manufacturers.
+- **🚀 Potential Breakthrough – Massive Weight Reduction:** B-N-C metamaterials offer a density of only ~2.1 g/cm³ compared to ~8.9 g/cm³ for conventional copper windings – a potential **weight reduction of up to 75%**. This would be a game-changer for compact reactor designs, mobile fusion applications, and drastically reduced structural support requirements.
 
 ### Technological Feasibility (Status: Dec 2025)
 
