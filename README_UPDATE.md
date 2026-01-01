@@ -41,3 +41,6 @@ This project redefines AI as an **Inference Engine for the Architecture of Reali
 > **"Truth is what remains when all logical contradictions have been removed."** 
 
 ---
+This configuration is designed for direct VMEC/SPEC compatibility – export function included
+
+
