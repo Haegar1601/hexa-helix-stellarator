@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hexa-helix-stellarator - 6-fold Magnetic Helix Symmetry</title>
+    <title>Hexa-Helix Stellarator - 6-fold Magnetic Helix Symmetry</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -126,11 +122,13 @@
             border-radius: 5px;
             background: #333;
             outline: none;
+            appearance: none;
             -webkit-appearance: none;
         }
         
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
+            appearance: none;
             width: 20px;
             height: 20px;
             border-radius: 50%;
@@ -224,28 +222,104 @@
             border-radius: 4px;
         }
         
+        /* Golden Ratio Section */
+        .golden-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(241, 196, 15, 0.1), rgba(230, 126, 34, 0.1));
+            border: 1px solid rgba(241, 196, 15, 0.3);
+            border-radius: 10px;
+        }
+        
+        .golden-section h3 {
+            color: #f1c40f;
+            margin-bottom: 15px;
+        }
+        
+        .phi-display {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .phi-display .phi {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #f1c40f;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .phi-display .label {
+            color: #ccc;
+            font-size: 0.9em;
+        }
+        
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 12px 0;
+        }
+        
+        .control-row label {
+            flex: 1;
+            margin: 0;
+        }
+        
+        .control-row input {
+            flex: 2;
+        }
+        
+        .control-row .value {
+            min-width: 45px;
+            text-align: right;
+            color: #f1c40f;
+            font-family: monospace;
+        }
+        
+        .vmec-btn {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 8px;
+        }
+        
+        .vmec-btn.iota {
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+        }
+        
+        .validation-box {
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(46, 204, 113, 0.1);
+            border-left: 4px solid #2ecc71;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        
+        .validation-box.warning {
+            background: rgba(241, 196, 15, 0.1);
+            border-left-color: #f1c40f;
+        }
+        
         @media (max-width: 900px) {
-            .container {
-                flex-direction: column;
-            }
-            #canvas-container, #info-panel {
-                width: 100%;
-                min-width: 100%;
-            }
-            #info-panel {
-                max-height: none;
-            }
+            .container { flex-direction: column; }
+            #canvas-container, #info-panel { width: 100%; min-width: 100%; }
+            #info-panel { max-height: none; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="canvas-container">
-            <div id="loading">⚛️ Loading hexa-helix-stellarator...</div>
+            <div id="loading">⚛️ Loading Hexa-Helix Stellarator...</div>
         </div>
         
         <div id="info-panel">
-            <h1>⚛️ Hexa-Helix-Stellarator</h1>
+            <h1>⚛️ Hexa-Helix Stellarator</h1>
             <h2 style="margin-top: 0; color: #ff006e; border: none;">6-fold Magnetic Helix Symmetry</h2>
             
             <div class="highlight">
@@ -286,7 +360,7 @@
                 </div>
                 <div class="spec-item">
                     <strong>Helix Strands</strong>
-                    <span>6 interwoven helices</span>
+                    <span>6 interwoven</span>
                 </div>
             </div>
             
@@ -294,41 +368,23 @@
             <div class="coil-types">
                 <div class="coil-type">
                     <div class="coil-color" style="background: linear-gradient(90deg, #ff0066, #8a2be2);"></div>
-                    <span><strong>6 Interwoven Helices</strong> - Wrap around each other like DNA</span>
+                    <span><strong>6 Interwoven Helices</strong> - DNA-like wrapping</span>
                 </div>
                 <div class="coil-type">
                     <div class="coil-color" style="background: linear-gradient(90deg, #00ffff, #00cccc);"></div>
-                    <span><strong>Interference Zones</strong> - Destructive interference (Cyan)</span>
+                    <span><strong>Interference Zones</strong> - Destructive (Cyan)</span>
                 </div>
                 <div class="coil-type">
                     <div class="coil-color" style="background: linear-gradient(90deg, #ff006e, #ffffff);"></div>
-                    <span><strong>Plasma Core</strong> - Stabilized through interlacing</span>
+                    <span><strong>Plasma Core</strong> - Stabilized by interlacing</span>
                 </div>
             </div>
             
             <div class="plasma-info">
                 <h3>🔥 Self-Stabilizing Field</h3>
                 <p>
-                    The 6 helices are <strong>phase-shifted</strong> (60° each) so that disturbances 
-                    at the crossing points <strong>cancel each other out</strong>. Where one helix 
-                    "bulges out", the opposite one "pulls in" → <strong>Destructive Interference</strong>.
-                </p>
-            </div>
-            
-            <h2>🌀 DNA Analogy: HexaHelix</h2>
-            <p>
-                Like the <strong>hypothetical HexaHelix-DNA</strong>, 6 strands wind around 
-                each other here. Each helix makes <strong>8 turns</strong> around the torus and is 
-                offset by <strong>60°</strong> from the previous one.
-            </p>
-            
-            <div class="plasma-info">
-                <h3>⚡ Destructive Interference</h3>
-                <p>
-                    <strong>Wave Cancellation:</strong> Opposite helices (1-4, 2-5, 3-6) 
-                    have opposing phases.<br>
-                    <strong>Node Lines:</strong> Cyan points show where B-field ≈ 0.<br>
-                    <strong>Self-Healing:</strong> Disturbances are automatically compensated.
+                    The 6 helices are <strong>phase-shifted</strong> (60° each) so disturbances 
+                    at crossing points <strong>cancel each other out</strong>. → <strong>Destructive Interference</strong>
                 </p>
             </div>
             
@@ -336,11 +392,11 @@
             <div class="controls">
                 <div class="control-group">
                     <label>Rotation Speed:</label>
-                    <input type="range" id="speed" min="0" max="100" value="20">
+                    <input type="range" id="speed" min="0" max="100" value="30">
                 </div>
                 <div class="control-group">
-                    <label>Coil Twist:</label>
-                    <input type="range" id="twist" min="0" max="100" value="50">
+                    <label>Coil Twist (φ=0.618):</label>
+                    <input type="range" id="twist" min="10" max="100" value="62">
                 </div>
                 <div class="control-group">
                     <label>Plasma Intensity:</label>
@@ -351,224 +407,121 @@
                     <button onclick="togglePlasma()">Plasma On/Off</button>
                     <button onclick="toggleCoils()">Coils On/Off</button>
                     <button onclick="resetView()">Reset</button>
-                    <button onclick="exportToSTL()" style="background: #4CAF50;">📥 Download STL (CAD)</button>
+                    <button onclick="exportToSTL()" style="background: #4CAF50;">📥 STL</button>
                 </div>
             </div>
             
-            <h2>🎨 Legend - Interlaced Helices</h2>
+            <!-- Golden Ratio Section -->
+            <div class="golden-section">
+                <h3>🌀 Golden Ratio Optimization</h3>
+                
+                <div class="phi-display">
+                    <div class="phi">φ = 0.618</div>
+                    <div class="label">Goldener Schnitt - Optimales Interlacing</div>
+                </div>
+                
+                <div class="control-row">
+                    <label>Helix Turns (N=6):</label>
+                    <input type="range" id="helixTurns" min="4" max="16" value="10" step="1">
+                    <span class="value" id="turnsValue">10</span>
+                </div>
+                
+                <div class="control-row">
+                    <label>Kelvin ε₂:</label>
+                    <input type="range" id="kelvinEps" min="0" max="100" value="30" step="5">
+                    <span class="value" id="epsValue">0.030</span>
+                </div>
+                
+                <button class="vmec-btn" onclick="exportVMECBoundary()">
+                    📤 Export VMEC Boundary
+                </button>
+                
+                <button class="vmec-btn iota" onclick="showIotaProfile()">
+                    📊 Show Iota Profile
+                </button>
+                
+                <div class="validation-box" id="validationStatus">
+                    <strong>Wave 2 Status:</strong> Ready for VMEC<br>
+                    <small>β-Target: 5% | Iota-Range: [0.8, 1.1]</small>
+                </div>
+            </div>
+            
+            <h2>🎨 Legend</h2>
             <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #ff0066;"></div>
-                    <span>Helix 1</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #ff6b35;"></div>
-                    <span>Helix 2</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #ffcc00;"></div>
-                    <span>Helix 3</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #00ff88;"></div>
-                    <span>Helix 4</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #00d4ff;"></div>
-                    <span>Helix 5</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #8a2be2;"></div>
-                    <span>Helix 6</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #00ffff;"></div>
-                    <span>Interference</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-color" style="background: #ffffff;"></div>
-                    <span>Plasma</span>
-                </div>
+                <div class="legend-item"><div class="legend-color" style="background: #ff0066;"></div><span>Helix 1</span></div>
+                <div class="legend-item"><div class="legend-color" style="background: #ff6b35;"></div><span>Helix 2</span></div>
+                <div class="legend-item"><div class="legend-color" style="background: #ffcc00;"></div><span>Helix 3</span></div>
+                <div class="legend-item"><div class="legend-color" style="background: #00ff88;"></div><span>Helix 4</span></div>
+                <div class="legend-item"><div class="legend-color" style="background: #00d4ff;"></div><span>Helix 5</span></div>
+                <div class="legend-item"><div class="legend-color" style="background: #8a2be2;"></div><span>Helix 6</span></div>
+                <div class="legend-item"><div class="legend-color" style="background: #ff006e;"></div><span>Plasma</span></div>
             </div>
             
             <h2>🔬 Physical Advantages</h2>
-            <p>
-                <strong>Intrinsic Stability:</strong> No external correction systems needed.
-            </p>
-            <p>
-                <strong>MHD Damping:</strong> Magnetohydrodynamic instabilities are suppressed.
-            </p>
-            <p>
-                <strong>Disruption Resistance:</strong> No sudden plasma collapses.
-            </p>
-            <p>
-                <strong>Self-Organization:</strong> System automatically finds stable state.
-            </p>
+            <p><strong>Intrinsic Stability:</strong> No external correction systems needed.</p>
+            <p><strong>MHD Damping:</strong> Magnetohydrodynamic instabilities suppressed.</p>
+            <p><strong>Disruption Resistance:</strong> No sudden plasma collapses.</p>
+            <p><strong>Self-Organization:</strong> System finds stable state automatically.</p>
         </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
-        // STLExporter (integrated)
-        ( function () {
-            class STLExporter {
-                parse( scene, options = {} ) {
-                    const binary = options.binary !== undefined ? options.binary : false;
-                    const objects = [];
-                    let triangles = 0;
-                    
-                    scene.traverse( function ( object ) {
-                        if ( object.isMesh ) {
-                            const geometry = object.geometry;
-                            if ( geometry.isBufferGeometry !== true ) {
-                                throw new Error( 'THREE.STLExporter: Geometry is not of type THREE.BufferGeometry.' );
-                            }
-                            const index = geometry.index;
-                            const positionAttribute = geometry.getAttribute( 'position' );
-                            triangles += index !== null ? index.count / 3 : positionAttribute.count / 3;
-                            objects.push( { object3d: object, geometry: geometry } );
-                        }
-                    } );
-                    
-                    let output;
-                    let offset = 80;
-                    
-                    if ( binary === true ) {
-                        const bufferLength = triangles * 2 + triangles * 3 * 4 * 4 + 80 + 4;
-                        const arrayBuffer = new ArrayBuffer( bufferLength );
-                        output = new DataView( arrayBuffer );
-                        output.setUint32( offset, triangles, true );
-                        offset += 4;
-                    } else {
-                        output = '';
-                        output += 'solid exported\n';
-                    }
-                    
-                    const vA = new THREE.Vector3();
-                    const vB = new THREE.Vector3();
-                    const vC = new THREE.Vector3();
-                    const cb = new THREE.Vector3();
-                    const ab = new THREE.Vector3();
-                    const normal = new THREE.Vector3();
-                    
-                    for ( let i = 0, il = objects.length; i < il; i++ ) {
-                        const object = objects[ i ].object3d;
-                        const geometry = objects[ i ].geometry;
-                        const index = geometry.index;
-                        const positionAttribute = geometry.getAttribute( 'position' );
-                        
-                        if ( index !== null ) {
-                            for ( let j = 0; j < index.count; j += 3 ) {
-                                const a = index.getX( j + 0 );
-                                const b = index.getX( j + 1 );
-                                const c = index.getX( j + 2 );
-                                writeFace( a, b, c, positionAttribute, object );
-                            }
-                        } else {
-                            for ( let j = 0; j < positionAttribute.count; j += 3 ) {
-                                const a = j + 0;
-                                const b = j + 1;
-                                const c = j + 2;
-                                writeFace( a, b, c, positionAttribute, object );
-                            }
-                        }
-                    }
-                    
-                    if ( binary === false ) {
-                        output += 'endsolid exported\n';
-                    }
-                    
-                    return output;
-                    
-                    function writeFace( a, b, c, positionAttribute, object ) {
-                        vA.fromBufferAttribute( positionAttribute, a );
-                        vB.fromBufferAttribute( positionAttribute, b );
-                        vC.fromBufferAttribute( positionAttribute, c );
-                        
-                        if ( object.isSkinnedMesh === true ) {
-                            object.boneTransform( a, vA );
-                            object.boneTransform( b, vB );
-                            object.boneTransform( c, vC );
-                        }
-                        
-                        vA.applyMatrix4( object.matrixWorld );
-                        vB.applyMatrix4( object.matrixWorld );
-                        vC.applyMatrix4( object.matrixWorld );
-                        writeNormal( vA, vB, vC );
-                        writeVertex( vA );
-                        writeVertex( vB );
-                        writeVertex( vC );
-                        
-                        if ( binary === true ) {
-                            output.setUint16( offset, 0, true );
-                            offset += 2;
-                        } else {
-                            output += '\t\tendloop\n';
-                            output += '\tendfacet\n';
-                        }
-                    }
-                    
-                    function writeNormal( vA, vB, vC ) {
-                        cb.subVectors( vC, vB );
-                        ab.subVectors( vA, vB );
-                        cb.cross( ab ).normalize();
-                        normal.copy( cb ).normalize();
-                        
-                        if ( binary === true ) {
-                            output.setFloat32( offset, normal.x, true );
-                            offset += 4;
-                            output.setFloat32( offset, normal.y, true );
-                            offset += 4;
-                            output.setFloat32( offset, normal.z, true );
-                            offset += 4;
-                        } else {
-                            output += '\tfacet normal ' + normal.x + ' ' + normal.y + ' ' + normal.z + '\n';
-                            output += '\t\touter loop\n';
-                        }
-                    }
-                    
-                    function writeVertex( vertex ) {
-                        if ( binary === true ) {
-                            output.setFloat32( offset, vertex.x, true );
-                            offset += 4;
-                            output.setFloat32( offset, vertex.y, true );
-                            offset += 4;
-                            output.setFloat32( offset, vertex.z, true );
-                            offset += 4;
-                        } else {
-                            output += '\t\t\tvertex ' + vertex.x + ' ' + vertex.y + ' ' + vertex.z + '\n';
-                        }
-                    }
-                }
-            }
-            THREE.STLExporter = STLExporter;
-        } )();
+        // ═══════════════════════════════════════════════════════════════
+        // HEXA-HELIX STELLARATOR v2.0 - GOLDEN RATIO OPTIMIZED
+        // Twin Code Analysis (Mensch + KI), January 2026
+        // ═══════════════════════════════════════════════════════════════
         
-        // Scene Setup
+        // Configuration
+        const config = {
+            numHelices: 6,
+            helixTurns: 10,
+            twistAmount: 0.618,  // Golden Ratio!
+            majorRadius: 5.5,
+            minorRadius: 1.2,
+            kelvinResonance: {
+                epsilon1: 0.15,
+                epsilon2: 0.03,
+                alpha: Math.PI / 6
+            },
+            vmec: {
+                mpol: 12,
+                ntor: 12,
+                ns: 99,
+                iotaMin: 0.8,
+                iotaMax: 1.1
+            }
+        };
+        
+        // Scene variables
         let scene, camera, renderer;
-        let stellarator, plasmaGroup, coilGroup;
+        let stellarator, coilGroup, plasmaGroup;
         let autoRotate = true;
-        let rotationSpeed = 0.002;
+        let rotationSpeed = 0.003;
         let showPlasma = true;
         let showCoils = true;
-        let twistAmount = 0.5;
+        let twistAmount = config.twistAmount;
         let plasmaIntensity = 0.7;
+        let helixTurns = config.helixTurns;
         
-        // Module Colors (6-fold HEXA symmetry)
         const moduleColors = [
-            0xff0066, // Magenta-Pink
-            0xff6b35, // Orange
-            0xffcc00, // Yellow
-            0x00ff88, // Green
-            0x00d4ff, // Cyan
-            0x8a2be2  // Purple
+            0xff0066, 0xff6b35, 0xffcc00,
+            0x00ff88, 0x00d4ff, 0x8a2be2
         ];
-        
-        const plasmaColor = 0xff006e;
+
+        // ═══════════════════════════════════════════════════════════════
+        // INITIALIZATION
+        // ═══════════════════════════════════════════════════════════════
         
         function init() {
             const container = document.getElementById('canvas-container');
             const loading = document.getElementById('loading');
+            
+            if (typeof THREE === 'undefined') {
+                loading.innerHTML = '❌ THREE.js konnte nicht geladen werden';
+                loading.style.color = '#ff0000';
+                return;
+            }
             
             // Scene
             scene = new THREE.Scene();
@@ -591,20 +544,19 @@
             container.appendChild(renderer.domElement);
             
             // Lights
-            const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
-            scene.add(ambientLight);
+            scene.add(new THREE.AmbientLight(0x404040, 0.4));
             
-            const pointLight1 = new THREE.PointLight(0xff6b35, 1.5, 50);
-            pointLight1.position.set(15, 10, 10);
-            scene.add(pointLight1);
+            const light1 = new THREE.PointLight(0xff6b35, 1.5, 50);
+            light1.position.set(15, 10, 10);
+            scene.add(light1);
             
-            const pointLight2 = new THREE.PointLight(0x00d4ff, 1.2, 50);
-            pointLight2.position.set(-15, -10, 10);
-            scene.add(pointLight2);
+            const light2 = new THREE.PointLight(0x00d4ff, 1.2, 50);
+            light2.position.set(-15, -10, 10);
+            scene.add(light2);
             
-            const pointLight3 = new THREE.PointLight(0xffffff, 0.8, 50);
-            pointLight3.position.set(0, 15, -10);
-            scene.add(pointLight3);
+            const light3 = new THREE.PointLight(0xffffff, 0.8, 50);
+            light3.position.set(0, 15, -10);
+            scene.add(light3);
             
             // Create Stellarator
             createStellarator();
@@ -612,333 +564,225 @@
             // Mouse controls
             setupControls();
             
-            // Remove loading
+            // Hide loading
             loading.style.display = 'none';
             
-            // Handle resize
+            // Resize handler
             window.addEventListener('resize', onWindowResize);
             
             // Start animation
             animate();
         }
         
+        // ═══════════════════════════════════════════════════════════════
+        // CREATE STELLARATOR
+        // ═══════════════════════════════════════════════════════════════
+        
         function createStellarator() {
-            // Remove existing
-            if (stellarator) scene.remove(stellarator);
+            // Clean up existing
+            if (stellarator) {
+                scene.remove(stellarator);
+                stellarator.traverse(obj => {
+                    if (obj.geometry) obj.geometry.dispose();
+                    if (obj.material) obj.material.dispose();
+                });
+            }
             
             stellarator = new THREE.Group();
             coilGroup = new THREE.Group();
             plasmaGroup = new THREE.Group();
             
-            const majorRadius = 5.5;  // Major torus radius
-            const minorRadius = 1.5;  // Radius of helix around torus
-            const plasmaRadius = 0.6; // Plasma-Radius
-            const numHelices = 6;     // 6 ineinander verwobene Helices
-            const helixTurns = 8;     // Anzahl der Windungen um den Torus
-            const pointsPerHelix = 400; // Auflösung
+            const majorRadius = config.majorRadius;
+            const minorRadius = config.minorRadius;
+            const numHelices = config.numHelices;
+            const pointsPerHelix = 400;
             
-            // ============================================
-            // INTERLACED MAGNETIC FIELD - 6 VERWOBENE HELICES
-            // Analog zur HexaHelix-DNA Struktur
-            // ============================================
+            // ═══════════════════════════════════════════════════════════════
+            // 6 INTERLACED HELICES with Kelvin Resonance
+            // ═══════════════════════════════════════════════════════════════
             
-            // Create 6 interlaced helical magnetic field lines
             for (let h = 0; h < numHelices; h++) {
-                // Phase offset für jede Helix (60° = π/3 versetzt)
                 const phaseOffset = (h / numHelices) * Math.PI * 2;
-                const helixColor = moduleColors[h];
-                
+                const color = moduleColors[h];
                 const helixPoints = [];
                 
                 for (let i = 0; i <= pointsPerHelix; i++) {
-                    const t = (i / pointsPerHelix) * Math.PI * 2; // Position auf dem Torus (0 bis 2π)
-                    
-                    // Helikale Windung um den Torus
+                    const t = (i / pointsPerHelix) * Math.PI * 2;
                     const helixAngle = t * helixTurns + phaseOffset;
                     
-                    // Twist-Modulation für Interlacing-Effekt
-                    // Die Helices "atmen" - mal enger, mal weiter
-                    const breathingFactor = 1 + 0.15 * Math.sin(t * 6 + phaseOffset * 2);
-                    const currentMinorRadius = minorRadius * breathingFactor * twistAmount;
+                    // Kelvin-Resonanz Breathing Function
+                    const { epsilon1, epsilon2, alpha } = config.kelvinResonance;
+                    const breathing = 1 + epsilon1 * Math.sin(6 * t + phaseOffset) 
+                                        + epsilon2 * Math.sin(12 * t + phaseOffset * 2 + alpha);
                     
-                    // Position auf dem Torus-Hauptkreis
+                    const r = minorRadius * breathing * twistAmount;
+                    
                     const torusX = Math.cos(t) * majorRadius;
                     const torusZ = Math.sin(t) * majorRadius;
-                    
-                    // Richtungsvektor tangential zum Torus
-                    const tangentX = -Math.sin(t);
-                    const tangentZ = Math.cos(t);
-                    
-                    // Normalvektor (zeigt zur Torus-Mitte)
                     const normalX = -Math.cos(t);
                     const normalZ = -Math.sin(t);
                     
-                    // Helix-Position im lokalen Koordinatensystem
-                    const localX = Math.cos(helixAngle) * currentMinorRadius;
-                    const localY = Math.sin(helixAngle) * currentMinorRadius;
-                    
-                    // Transformation in Weltkoordinaten
-                    const x = torusX + localX * normalX;
-                    const y = localY;
-                    const z = torusZ + localX * normalZ;
+                    const x = torusX + Math.cos(helixAngle) * r * normalX;
+                    const y = Math.sin(helixAngle) * r;
+                    const z = torusZ + Math.cos(helixAngle) * r * normalZ;
                     
                     helixPoints.push(new THREE.Vector3(x, y, z));
                 }
                 
-                // Erstelle die Helix als geschlossene Kurve
                 const curve = new THREE.CatmullRomCurve3(helixPoints, true);
                 
-                // Hauptstrang der Helix
-                const tubeGeometry = new THREE.TubeGeometry(curve, pointsPerHelix, 0.12, 12, true);
-                const tubeMaterial = new THREE.MeshPhongMaterial({
-                    color: helixColor,
-                    emissive: helixColor,
-                    emissiveIntensity: 0.4,
+                // Main helix tube
+                const tubeGeo = new THREE.TubeGeometry(curve, pointsPerHelix, 0.1, 8, true);
+                const tubeMat = new THREE.MeshPhongMaterial({
+                    color: color,
+                    emissive: color,
+                    emissiveIntensity: 0.3,
                     shininess: 100,
                     transparent: true,
                     opacity: 0.85
                 });
-                const tube = new THREE.Mesh(tubeGeometry, tubeMaterial);
-                coilGroup.add(tube);
+                coilGroup.add(new THREE.Mesh(tubeGeo, tubeMat));
                 
-                // Glühender Kern der Helix (Magnetfeldlinie)
-                const coreGeometry = new THREE.TubeGeometry(curve, pointsPerHelix, 0.04, 8, true);
-                const coreMaterial = new THREE.MeshBasicMaterial({
-                    color: 0xffffff,
-                    transparent: true,
-                    opacity: 0.9
-                });
-                const core = new THREE.Mesh(coreGeometry, coreMaterial);
-                coilGroup.add(core);
+                // Glowing core
+                const coreGeo = new THREE.TubeGeometry(curve, pointsPerHelix, 0.03, 6, true);
+                const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 });
+                coilGroup.add(new THREE.Mesh(coreGeo, coreMat));
                 
-                // Magnetfeld-Knoten entlang jeder Helix
+                // Field nodes
                 for (let n = 0; n < helixTurns * 2; n++) {
-                    const nodeT = n / (helixTurns * 2);
-                    const point = curve.getPoint(nodeT);
-                    
-                    const nodeGeometry = new THREE.SphereGeometry(0.2, 16, 16);
-                    const nodeMaterial = new THREE.MeshPhongMaterial({
-                        color: helixColor,
-                        emissive: helixColor,
-                        emissiveIntensity: 0.6,
-                        shininess: 100
+                    const point = curve.getPoint(n / (helixTurns * 2));
+                    const nodeGeo = new THREE.SphereGeometry(0.15, 12, 12);
+                    const nodeMat = new THREE.MeshPhongMaterial({
+                        color: color,
+                        emissive: color,
+                        emissiveIntensity: 0.5
                     });
-                    const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
+                    const node = new THREE.Mesh(nodeGeo, nodeMat);
                     node.position.copy(point);
                     coilGroup.add(node);
                 }
             }
             
-            // ============================================
-            // DESTRUKTIVE INTERFERENZ - Verbindungen zwischen Helices
-            // Zeigt wo sich Magnetfelder gegenseitig aufheben
-            // ============================================
-            
-            const interferencePoints = 24; // Anzahl der Interferenz-Verbindungen
-            for (let i = 0; i < interferencePoints; i++) {
-                const t = (i / interferencePoints) * Math.PI * 2;
-                
-                // Verbinde jeweils gegenüberliegende Helices (0-3, 1-4, 2-5)
-                for (let pair = 0; pair < 3; pair++) {
-                    const h1 = pair;
-                    const h2 = pair + 3;
-                    
-                    const phase1 = (h1 / numHelices) * Math.PI * 2;
-                    const phase2 = (h2 / numHelices) * Math.PI * 2;
-                    
-                    const helixAngle1 = t * helixTurns + phase1;
-                    const helixAngle2 = t * helixTurns + phase2;
-                    
-                    const breathingFactor = 1 + 0.15 * Math.sin(t * 6);
-                    const r = minorRadius * breathingFactor * twistAmount;
-                    
-                    const torusX = Math.cos(t) * majorRadius;
-                    const torusZ = Math.sin(t) * majorRadius;
-                    const normalX = -Math.cos(t);
-                    const normalZ = -Math.sin(t);
-                    
-                    // Position Helix 1
-                    const x1 = torusX + Math.cos(helixAngle1) * r * normalX;
-                    const y1 = Math.sin(helixAngle1) * r;
-                    const z1 = torusZ + Math.cos(helixAngle1) * r * normalZ;
-                    
-                    // Position Helix 2
-                    const x2 = torusX + Math.cos(helixAngle2) * r * normalX;
-                    const y2 = Math.sin(helixAngle2) * r;
-                    const z2 = torusZ + Math.cos(helixAngle2) * r * normalZ;
-                    
-                    // Verbindungslinie (Interferenz-Zone)
-                    const lineGeometry = new THREE.BufferGeometry().setFromPoints([
-                        new THREE.Vector3(x1, y1, z1),
-                        new THREE.Vector3(x2, y2, z2)
-                    ]);
-                    
-                    const lineMaterial = new THREE.LineBasicMaterial({
-                        color: 0x00ffff,
-                        transparent: true,
-                        opacity: 0.3
-                    });
-                    
-                    const line = new THREE.Line(lineGeometry, lineMaterial);
-                    coilGroup.add(line);
-                    
-                    // Interferenz-Punkt in der Mitte (destruktive Interferenz)
-                    const midX = (x1 + x2) / 2;
-                    const midY = (y1 + y2) / 2;
-                    const midZ = (z1 + z2) / 2;
-                    
-                    const interferenceGeometry = new THREE.SphereGeometry(0.08, 8, 8);
-                    const interferenceMaterial = new THREE.MeshBasicMaterial({
-                        color: 0x00ffff,
-                        transparent: true,
-                        opacity: 0.6
-                    });
-                    const interferenceNode = new THREE.Mesh(interferenceGeometry, interferenceMaterial);
-                    interferenceNode.position.set(midX, midY, midZ);
-                    interferenceNode.userData.isInterference = true;
-                    coilGroup.add(interferenceNode);
-                }
-            }
-            
-            // ============================================
-            // PLASMA im Zentrum (eingeschlossen durch Interlaced Field)
-            // ============================================
+            // ═══════════════════════════════════════════════════════════════
+            // PLASMA CORE
+            // ═══════════════════════════════════════════════════════════════
             
             const plasmaPoints = [];
-            const plasmaSegments = 200;
-            
-            for (let i = 0; i <= plasmaSegments; i++) {
-                const t = (i / plasmaSegments) * Math.PI * 2;
-                
-                // Plasma folgt dem Torus, leicht moduliert durch das 6-fache Feld
-                const fieldModulation = 0.1 * Math.sin(t * 6);
-                
-                const x = Math.cos(t) * (majorRadius + fieldModulation);
-                const y = fieldModulation * 0.5;
-                const z = Math.sin(t) * (majorRadius + fieldModulation);
-                
-                plasmaPoints.push(new THREE.Vector3(x, y, z));
+            for (let i = 0; i <= 200; i++) {
+                const t = (i / 200) * Math.PI * 2;
+                const mod = 0.1 * Math.sin(t * 6);
+                plasmaPoints.push(new THREE.Vector3(
+                    Math.cos(t) * (majorRadius + mod),
+                    mod * 0.5,
+                    Math.sin(t) * (majorRadius + mod)
+                ));
             }
             
             const plasmaCurve = new THREE.CatmullRomCurve3(plasmaPoints, true);
             
-            // Äußere Plasma-Hülle
-            const plasmaGeometry = new THREE.TubeGeometry(plasmaCurve, 200, plasmaRadius * plasmaIntensity, 16, true);
-            const plasmaMaterial = new THREE.MeshPhongMaterial({
-                color: plasmaColor,
-                emissive: plasmaColor,
-                emissiveIntensity: 0.8,
+            const plasmaGeo = new THREE.TubeGeometry(plasmaCurve, 200, 0.4 * plasmaIntensity, 12, true);
+            const plasmaMat = new THREE.MeshPhongMaterial({
+                color: 0xff006e,
+                emissive: 0xff006e,
+                emissiveIntensity: 0.7,
                 transparent: true,
-                opacity: 0.5,
-                shininess: 100
+                opacity: 0.5
             });
-            const plasmaTube = new THREE.Mesh(plasmaGeometry, plasmaMaterial);
-            plasmaGroup.add(plasmaTube);
+            plasmaGroup.add(new THREE.Mesh(plasmaGeo, plasmaMat));
             
-            // Heißer Plasma-Kern
-            const coreGeometry = new THREE.TubeGeometry(plasmaCurve, 200, plasmaRadius * 0.4 * plasmaIntensity, 12, true);
-            const coreMaterial = new THREE.MeshBasicMaterial({
-                color: 0xffffff,
-                transparent: true,
-                opacity: 0.95
-            });
-            const plasmaCore = new THREE.Mesh(coreGeometry, coreMaterial);
-            plasmaGroup.add(plasmaCore);
+            // Hot core
+            const hotCoreGeo = new THREE.TubeGeometry(plasmaCurve, 200, 0.15 * plasmaIntensity, 8, true);
+            const hotCoreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 });
+            plasmaGroup.add(new THREE.Mesh(hotCoreGeo, hotCoreMat));
             
-            // Plasma-Partikel
-            for (let i = 0; i < 300; i++) {
-                const t = Math.random();
-                const point = plasmaCurve.getPoint(t);
-                
-                const particleGeometry = new THREE.SphereGeometry(0.04, 4, 4);
-                const particleMaterial = new THREE.MeshBasicMaterial({
-                    color: Math.random() > 0.5 ? 0xffffff : plasmaColor,
-                    transparent: true,
-                    opacity: 0.8
-                });
-                const particle = new THREE.Mesh(particleGeometry, particleMaterial);
-                
-                const offset = new THREE.Vector3(
-                    (Math.random() - 0.5) * plasmaRadius * 1.2,
-                    (Math.random() - 0.5) * plasmaRadius * 1.2,
-                    (Math.random() - 0.5) * plasmaRadius * 1.2
-                );
-                particle.position.copy(point).add(offset);
-                particle.userData.basePosition = point.clone();
-                particle.userData.offset = offset;
-                particle.userData.speed = 0.5 + Math.random();
-                plasmaGroup.add(particle);
-            }
+            // Reference torus
+            const torusGeo = new THREE.TorusGeometry(majorRadius, 0.02, 8, 100);
+            const torusMat = new THREE.MeshBasicMaterial({ color: 0x444444, transparent: true, opacity: 0.3 });
+            const refTorus = new THREE.Mesh(torusGeo, torusMat);
+            refTorus.rotation.x = Math.PI / 2;
+            stellarator.add(refTorus);
             
             stellarator.add(coilGroup);
             stellarator.add(plasmaGroup);
-            
-            // Referenz-Torus (Mittellinie)
-            const torusGeometry = new THREE.TorusGeometry(majorRadius, 0.03, 8, 100);
-            const torusMaterial = new THREE.MeshBasicMaterial({
-                color: 0x444444,
-                transparent: true,
-                opacity: 0.4
-            });
-            const referenceTorus = new THREE.Mesh(torusGeometry, torusMaterial);
-            referenceTorus.rotation.x = Math.PI / 2;
-            stellarator.add(referenceTorus);
-            
             scene.add(stellarator);
         }
         
+        // ═══════════════════════════════════════════════════════════════
+        // CONTROLS
+        // ═══════════════════════════════════════════════════════════════
+        
         function setupControls() {
             let isDragging = false;
-            let previousMousePosition = { x: 0, y: 0 };
+            let prevX = 0, prevY = 0;
             
-            const container = document.getElementById('canvas-container');
+            const canvas = renderer.domElement;
             
-            container.addEventListener('mousedown', (e) => {
+            canvas.addEventListener('mousedown', e => {
                 isDragging = true;
-                previousMousePosition = { x: e.clientX, y: e.clientY };
+                prevX = e.clientX;
+                prevY = e.clientY;
             });
             
-            container.addEventListener('mousemove', (e) => {
+            canvas.addEventListener('mousemove', e => {
                 if (!isDragging) return;
-                
-                const deltaMove = {
-                    x: e.clientX - previousMousePosition.x,
-                    y: e.clientY - previousMousePosition.y
-                };
-                
-                stellarator.rotation.y += deltaMove.x * 0.01;
-                stellarator.rotation.x += deltaMove.y * 0.01;
-                
-                previousMousePosition = { x: e.clientX, y: e.clientY };
+                stellarator.rotation.y += (e.clientX - prevX) * 0.01;
+                stellarator.rotation.x += (e.clientY - prevY) * 0.01;
+                prevX = e.clientX;
+                prevY = e.clientY;
             });
             
-            container.addEventListener('mouseup', () => { isDragging = false; });
-            container.addEventListener('mouseleave', () => { isDragging = false; });
+            canvas.addEventListener('mouseup', () => isDragging = false);
+            canvas.addEventListener('mouseleave', () => isDragging = false);
+            
+            canvas.addEventListener('wheel', e => {
+                e.preventDefault();
+                camera.position.z = Math.max(10, Math.min(40, camera.position.z + e.deltaY * 0.02));
+            });
             
             // Touch support
-            container.addEventListener('touchstart', (e) => {
+            canvas.addEventListener('touchstart', e => {
                 isDragging = true;
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                prevX = e.touches[0].clientX;
+                prevY = e.touches[0].clientY;
             });
             
-            container.addEventListener('touchmove', (e) => {
+            canvas.addEventListener('touchmove', e => {
                 if (!isDragging) return;
-                const deltaMove = {
-                    x: e.touches[0].clientX - previousMousePosition.x,
-                    y: e.touches[0].clientY - previousMousePosition.y
-                };
-                stellarator.rotation.y += deltaMove.x * 0.01;
-                stellarator.rotation.x += deltaMove.y * 0.01;
-                previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                stellarator.rotation.y += (e.touches[0].clientX - prevX) * 0.01;
+                stellarator.rotation.x += (e.touches[0].clientY - prevY) * 0.01;
+                prevX = e.touches[0].clientX;
+                prevY = e.touches[0].clientY;
             });
             
-            container.addEventListener('touchend', () => { isDragging = false; });
+            canvas.addEventListener('touchend', () => isDragging = false);
             
-            // Zoom
-            container.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                camera.position.z += e.deltaY * 0.02;
-                camera.position.z = Math.max(10, Math.min(40, camera.position.z));
+            // Slider controls
+            document.getElementById('speed').addEventListener('input', e => {
+                rotationSpeed = e.target.value / 5000;
+            });
+            
+            document.getElementById('twist').addEventListener('input', e => {
+                twistAmount = e.target.value / 100;
+                createStellarator();
+            });
+            
+            document.getElementById('plasmaIntensity').addEventListener('input', e => {
+                plasmaIntensity = e.target.value / 100;
+                createStellarator();
+            });
+            
+            document.getElementById('helixTurns').addEventListener('input', e => {
+                helixTurns = parseInt(e.target.value);
+                document.getElementById('turnsValue').textContent = helixTurns;
+                config.helixTurns = helixTurns;
+                createStellarator();
+            });
+            
+            document.getElementById('kelvinEps').addEventListener('input', e => {
+                const val = e.target.value / 1000;
+                config.kelvinResonance.epsilon2 = val;
+                document.getElementById('epsValue').textContent = val.toFixed(3);
+                createStellarator();
             });
         }
         
@@ -949,57 +793,26 @@
             renderer.setSize(container.clientWidth, container.clientHeight);
         }
         
-        let time = 0;
+        // ═══════════════════════════════════════════════════════════════
+        // ANIMATION
+        // ═══════════════════════════════════════════════════════════════
+        
         function animate() {
             requestAnimationFrame(animate);
-            time += 0.016;
             
             if (autoRotate && stellarator) {
                 stellarator.rotation.y += rotationSpeed;
             }
             
-            // Animate plasma particles
-            if (plasmaGroup && showPlasma) {
-                plasmaGroup.children.forEach((child, index) => {
-                    if (child.userData.speed) {
-                        const speed = child.userData.speed;
-                        child.position.x = child.userData.basePosition.x + 
-                            child.userData.offset.x * Math.sin(time * speed);
-                        child.position.y = child.userData.basePosition.y + 
-                            child.userData.offset.y * Math.cos(time * speed * 1.3);
-                        child.position.z = child.userData.basePosition.z + 
-                            child.userData.offset.z * Math.sin(time * speed * 0.7);
-                        
-                        // Pulsing opacity
-                        if (child.material) {
-                            child.material.opacity = 0.5 + 0.5 * Math.sin(time * speed * 2 + index);
-                        }
-                    }
-                });
-            }
-            
             renderer.render(scene, camera);
         }
         
-        // Control functions
-        function exportToSTL() {
-            const exporter = new THREE.STLExporter();
-            // Wir exportieren nur die coilGroup (die Spulen), nicht das Plasma!
-            const result = exporter.parse(coilGroup);
-
-            const blob = new Blob([result], { type: 'text/plain' });
-            const link = document.createElement('a');
-            link.style.display = 'none';
-            document.body.appendChild(link);
-            link.href = URL.createObjectURL(blob);
-            link.download = 'hexa_helix_coils.stl';
-            link.click();
-            document.body.removeChild(link);
-        }
-
+        // ═══════════════════════════════════════════════════════════════
+        // UI FUNCTIONS
+        // ═══════════════════════════════════════════════════════════════
+        
         function toggleAutoRotate() {
             autoRotate = !autoRotate;
-            document.querySelector('button').classList.toggle('active', autoRotate);
         }
         
         function togglePlasma() {
@@ -1014,28 +827,187 @@
         
         function resetView() {
             if (stellarator) {
-                stellarator.rotation.x = 0;
-                stellarator.rotation.y = 0;
-                stellarator.rotation.z = 0;
+                stellarator.rotation.set(0, 0, 0);
             }
             camera.position.set(0, 8, 18);
             camera.lookAt(0, 0, 0);
         }
         
-        // Slider controls
-        document.getElementById('speed').addEventListener('input', function(e) {
-            rotationSpeed = e.target.value / 5000;
-        });
+        // ═══════════════════════════════════════════════════════════════
+        // VMEC EXPORT
+        // ═══════════════════════════════════════════════════════════════
         
-        document.getElementById('twist').addEventListener('input', function(e) {
-            twistAmount = e.target.value / 100;
-            createStellarator();
-        });
+        function calculateFourierCoefficients() {
+            const Bmn = [];
+            const { mpol, ntor } = config.vmec;
+            const base = config.minorRadius / config.majorRadius;
+            
+            for (let m = 0; m <= mpol; m++) {
+                for (let n = -ntor; n <= ntor; n++) {
+                    if (n % 6 === 0 || n === 0) {
+                        let amplitude;
+                        if (m === 0 && n === 0) amplitude = config.majorRadius;
+                        else if (m === 1 && n === 0) amplitude = config.minorRadius;
+                        else if (m === 0 && n === 6) amplitude = base * 0.05;
+                        else if (m === 1 && n === 6) amplitude = base * 0.02;
+                        else amplitude = base * Math.exp(-0.5 * (Math.abs(m) + Math.abs(n) / 6));
+                        
+                        if (Math.abs(amplitude) > 1e-10) {
+                            Bmn.push({ m, n, rbc: amplitude, zbs: amplitude * 0.1 });
+                        }
+                    }
+                }
+            }
+            return Bmn;
+        }
         
-        document.getElementById('plasmaIntensity').addEventListener('input', function(e) {
-            plasmaIntensity = e.target.value / 100;
-            createStellarator();
-        });
+        function exportVMECBoundary() {
+            const Bmn = calculateFourierCoefficients();
+            const { mpol, ntor, ns } = config.vmec;
+            
+            let vmecInput = `!----- HEXA-HELIX STELLARATOR VMEC INPUT -----
+! Generated by Twin Code (Mensch + KI)
+! Date: ${new Date().toISOString()}
+! Golden Ratio Twist: ${twistAmount.toFixed(4)}
+! Helix Turns: ${helixTurns}
+
+&INDATA
+  MGRID_FILE = 'none'
+  LFREEB = F
+  
+  NFP = 6
+  MPOL = ${mpol}
+  NTOR = ${ntor}
+  NS_ARRAY = ${ns}
+  
+  PHIEDGE = 1.0
+  CURTOR = 0.0
+  
+  GAMMA = 0.0
+  BLOAT = 1.0
+  SPRES_PED = 1.0
+  
+  PRES_SCALE = 1.0
+  AM = 1.0 0.0 0.0 0.0 0.0
+  
+  NCURR = 0
+  
+  ! === BOUNDARY COEFFICIENTS (N=6 SYMMETRY) ===
+`;
+
+            Bmn.forEach(({ m, n, rbc, zbs }) => {
+                vmecInput += `  RBC(${n},${m}) = ${rbc.toFixed(6)}  ZBS(${n},${m}) = ${zbs.toFixed(6)}\n`;
+            });
+
+            vmecInput += `
+/
+&END
+`;
+
+            const blob = new Blob([vmecInput], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'hexa_helix_vmec_input.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert('VMEC Boundary File exported!');
+        }
+        
+        function calculateIotaProfile() {
+            const profiles = [];
+            const numPoints = 50;
+            
+            for (let i = 0; i <= numPoints; i++) {
+                const s = i / numPoints;
+                const iotaAxis = config.helixTurns * config.twistAmount / config.numHelices;
+                const shear = 0.15;
+                const iota = iotaAxis * (1 + shear * s);
+                profiles.push({ s, iota });
+            }
+            
+            const iotaEdge = profiles[profiles.length - 1].iota;
+            const warnings = [];
+            
+            if (Math.abs(iotaEdge - 1.2) < 0.05) {
+                warnings.push('⚠️ Iota nahe 6/5 Resonanz!');
+            }
+            if (iotaEdge < config.vmec.iotaMin || iotaEdge > config.vmec.iotaMax) {
+                warnings.push(`⚠️ Iota außerhalb [${config.vmec.iotaMin}, ${config.vmec.iotaMax}]`);
+            }
+            
+            return { profiles, warnings, iotaAxis: profiles[0].iota, iotaEdge };
+        }
+        
+        function showIotaProfile() {
+            const { profiles, warnings, iotaAxis, iotaEdge } = calculateIotaProfile();
+            const statusDiv = document.getElementById('validationStatus');
+            
+            if (warnings.length > 0) {
+                statusDiv.className = 'validation-box warning';
+                statusDiv.innerHTML = `
+                    <strong>⚠️ Iota Warnings:</strong><br>
+                    ${warnings.join('<br>')}<br>
+                    <small>ι(0) = ${iotaAxis.toFixed(4)} → ι(edge) = ${iotaEdge.toFixed(4)}</small>
+                `;
+            } else {
+                statusDiv.className = 'validation-box';
+                statusDiv.innerHTML = `
+                    <strong>✅ Iota Profile OK:</strong><br>
+                    ι(0) = ${iotaAxis.toFixed(4)}<br>
+                    ι(edge) = ${iotaEdge.toFixed(4)}<br>
+                    <small>Außerhalb kritischer Resonanzen</small>
+                `;
+            }
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // STL EXPORT
+        // ═══════════════════════════════════════════════════════════════
+        
+        function exportToSTL() {
+            let output = 'solid hexa_helix\n';
+            
+            coilGroup.traverse(obj => {
+                if (obj.isMesh && obj.geometry) {
+                    const geo = obj.geometry;
+                    const pos = geo.getAttribute('position');
+                    const idx = geo.index;
+                    
+                    if (idx) {
+                        for (let i = 0; i < idx.count; i += 3) {
+                            const a = idx.getX(i), b = idx.getX(i+1), c = idx.getX(i+2);
+                            const vA = new THREE.Vector3().fromBufferAttribute(pos, a).applyMatrix4(obj.matrixWorld);
+                            const vB = new THREE.Vector3().fromBufferAttribute(pos, b).applyMatrix4(obj.matrixWorld);
+                            const vC = new THREE.Vector3().fromBufferAttribute(pos, c).applyMatrix4(obj.matrixWorld);
+                            
+                            const cb = new THREE.Vector3().subVectors(vC, vB);
+                            const ab = new THREE.Vector3().subVectors(vA, vB);
+                            const normal = cb.cross(ab).normalize();
+                            
+                            output += `facet normal ${normal.x} ${normal.y} ${normal.z}\n`;
+                            output += `  outer loop\n`;
+                            output += `    vertex ${vA.x} ${vA.y} ${vA.z}\n`;
+                            output += `    vertex ${vB.x} ${vB.y} ${vB.z}\n`;
+                            output += `    vertex ${vC.x} ${vC.y} ${vC.z}\n`;
+                            output += `  endloop\n`;
+                            output += `endfacet\n`;
+                        }
+                    }
+                }
+            });
+            
+            output += 'endsolid hexa_helix\n';
+            
+            const blob = new Blob([output], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'hexa_helix_coils.stl';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
         
         // Initialize
         window.onload = init;
