@@ -51,6 +51,15 @@ Current Engagement: Over **50 Unique Cloners** are currently engaged in validati
 
 ---
 
+## 🏭 Engineering & Scalability
+This project goes beyond geometric theory. We are exploring scalable manufacturing pathways using **B-N-C doped Metamaterials**.
+
+📄 **View the Engineering Specification:** [HexaHelix B-N-C Spec Sheet](docs/engineering/HexaHelix-BNC-Spec-Draft.html)
+
+* **Level 3 Pathway:** Transition from wound coils to 3D-printed porous metamaterials.
+* **Neutron Hardness:** Usage of Boron-11 ($^{11}B$) for fusion compatibility.
+* **Industrial Partner Target:** Specifications tailored for HTS thin-film manufacturers.
+
 ## 🛠 Features
 * **Interactive HTML5/Three.js Simulation:** Real-time exploration of the 6-fold symmetry and plasma stability.
 * **VMEC Boundary Export:** Generate professional-grade $RBC/ZBS$ coefficients for equilibrium solvers.
