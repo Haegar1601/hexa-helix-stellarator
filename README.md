@@ -135,18 +135,6 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 
 ---
 
-## 📊 Validation Status: The "Three Waves"
-
-| Wave | Description | Status |
-|------|-------------|--------|
-| **Wave 1** | Geometric Logic | ✅ COMPLETED (Conceptual Proof) |
-| **Wave 2** | Numerical Equilibrium | 🔄 IN PROGRESS (VMEC/SPEC Export active) |
-| **Wave 3** | Twin Code Verification | ⏳ TARGET: JANUARY 2026 |
-
-**Current Engagement:** Over 50 Unique Cloners are currently engaged in validating this geometry.
-
----
-
 ## 🛠 Features
 
 - **Interactive HTML5/Three.js Simulation:** Real-time exploration of the 6-fold symmetry and plasma stability.
