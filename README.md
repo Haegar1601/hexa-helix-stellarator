@@ -46,26 +46,32 @@ We hypothesize that the most stable magnetic path aligns with the **Kelvin Cell*
 
 - **Design Rationale:** The AI algorithm utilized the Kelvin-partitioning of the toroidal volume as a guide for the coil winding path. By aligning the magnetic field periodicity with the hexagonal faces of this theoretical lattice, the design aims to minimize flux surface distortion and optimize volumetric field efficiency.
 
-## 4. Geometric Breathing & Turbulence Shearing (Hypothesis)
+### 4. Geometric Breathing & Turbulence Shearing (Hypothesis)
 
-**Note:** This section explores a speculative extension of the $N=6$ geometry. It is an invitation for computational fluid dynamics (CFD) and gyrokinetic simulation experts to test these assumptions.
+**Note:** This section explores a highly speculative extension of the $N=6$ geometry. It is not grounded in direct simulations and serves as an explicit invitation for computational fluid dynamics (CFD) and gyrokinetic simulation experts to test these assumptions.
 
-### The "Geometric Pump" Concept
-While the Hexa-Helix geometry is static, a plasma packet traveling along the magnetic field lines experiences the radial modulation ($\epsilon_2 \approx 0.03$) as a periodic compression and expansion. We term this the **"Breathing Mode."**
+#### The "Geometric Pump" Concept
+While the Hexa-Helix coil geometry itself is static, a plasma packet traveling along the magnetic field lines experiences the secondary radial modulation ($\epsilon_2 \approx 0.03$) as a periodic compression and expansion. We term this perceived effect the **"Geometric Breathing Mode"** or **"Geometric Pump"**.
 
-* **Turbulence Neutralization:** Inspired by recent LHD experiments [Kenmochi et al., 2025](https://www.nature.com/articles/s42005-025-02454-x), we hypothesize that the $N=6$ symmetry induces a **periodic shearing rate**. This could act like a "spatial filter," shredding large-scale turbulence (low-k modes) before they can trigger significant heat transport.
-* **Active-Dynamic Resonance:** By potentially "tuning" the plasma flow velocity against the geometric period, the system might achieve a state of **destructive interference** with ITG (Ion Temperature Gradient) instabilities.
+- **Turbulence Neutralization Hypothesis:**  
+  Inspired by recent Large Helical Device (LHD) experiments showing coexisting local and nonlocal turbulence influenced by modulated heating [Kenmochi et al., Commun. Phys. 8, 354 (2025)](https://www.nature.com/articles/s42005-025-02454-x), we hypothesize that the $N=6$ symmetry induces a **periodic shearing rate**. This could act as a passive "spatial filter," preferentially shredding large-scale (low-k) turbulence modes before they drive significant cross-field heat transport.
 
-### Theoretical Mechanism: From Chaos to Resonance
-Instead of viewing plasma instabilities as "noise," this model treats them as frequencies that can be managed. The high magnetic stiffness of the interlaced $N=6$ coils provides the "anchor" needed to maintain this resonance:
+- **Active-Dynamic Resonance Hypothesis:**  
+  By potentially tuning plasma flow velocity relative to the geometric period (e.g., via rotational transform or external pacing), the system might achieve resonance-like conditions that enhance damping of specific instabilities, such as ITG (Ion Temperature Gradient) modes, through constructive shearing or destructive interference-like effects.
 
-| Concept | Traditional Stellarator | Hexa-Helix Hypothesis |
-| :--- | :--- | :--- |
-| **Turbulence Profile** | Stochastic / Managed via Shear | Patterned / Managed via Resonance |
-| **Radial Transport** | Diffusive | Filtered by "Geometric Breathing" |
-| **Stability Framework** | Static equilibrium | Dynamic geometric stabilization |
+#### Theoretical Mechanism: From Chaos to Resonance
+Instead of treating plasma instabilities purely as stochastic "noise," this hypothesis views them as manageable frequency components. The high magnetic stiffness of the interlaced $N=6$ coils provides a robust "anchor" for maintaining potential resonance states.
 
-> **Community Call to Action:** Does the $N=6$ symmetry create favorable **Zonal Flows**? We are looking for contributors to run initial [GENE](https://genecode.org/) or [Stella](https://stellagk.github.io/stella/) simulations. Join the discussion in [Issue #1](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
+| Concept              | Traditional Stellarator                  | Hexa-Helix Hypothesis                          |
+|----------------------|------------------------------------------|------------------------------------------------|
+| **Turbulence Profile** | Stochastic / Managed primarily via shear | Patterned / Managed via geometric resonance    |
+| **Radial Transport**   | Diffusive (neoclassical + turbulent)     | Potentially filtered by "Geometric Breathing"  |
+| **Stability Framework**| Static MHD equilibrium                   | Dynamic geometric stabilization (speculative)  |
+
+> **Community Call to Action:**  
+> Does the $N=6$ symmetry with secondary modulation generate favorable **zonal flows** or enhanced turbulence shearing?  
+> We explicitly invite contributors to run initial gyrokinetic simulations using codes such as [GENE](https://genecode.org/) or [Stella](https://stella-project.github.io/stella/).  
+> Share results, critiques, or preliminary findings in the dedicated [Validation Thread (Issue #1)](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
 
 ---
 
