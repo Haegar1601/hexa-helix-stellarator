@@ -218,7 +218,7 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 |----------|-------------|
 | [Technical Memorandum](Technical%20Memorandum.md) | Mathematical proof of dual-representation framework (Geometric vs. Spectral approach) |
 | [Engineering Spec](docs/engineering) | B-N-C Metamaterial specifications |
-| [Simulation](Simulation%20(Open%20Source)-HexaHelix.html) | Interactive 3D visualization |
+| [Simulation](simulation/Simulation_HexaHelix.html) | Interactive 3D visualization |
 
 ---
 
