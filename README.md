@@ -65,7 +65,7 @@ Instead of viewing plasma instabilities as "noise," this model treats them as fr
 | **Radial Transport** | Diffusive | Filtered by "Geometric Breathing" |
 | **Stability Framework** | Static equilibrium | Dynamic geometric stabilization |
 
-> **Community Call to Action:** Does the $N=6$ symmetry create favorable **Zonal Flows**? We are looking for contributors to run initial [GENE](https://genecode.org/) or [Stella](https://stella-project.github.io/stella/) simulations. Join the discussion in [Issue #1](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
+> **Community Call to Action:** Does the $N=6$ symmetry create favorable **Zonal Flows**? We are looking for contributors to run initial [GENE](https://genecode.org/) or [Stella](https://stellagk.github.io/stella/) simulations. Join the discussion in [Issue #1](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
 
 ---
 
