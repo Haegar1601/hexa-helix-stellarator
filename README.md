@@ -216,7 +216,7 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 |----------|-------------|
 | [Technical Memorandum](Technical%20Memorandum.md) | Mathematical proof of dual-representation framework (Geometric vs. Spectral approach) |
 | [Engineering Spec](docs/engineering) | B-N-C Metamaterial specifications |
-| [Simulation](simulation/Simulation_HexaHelix.html) | Interactive 3D visualization |
+| [Simulation](simulation) | Interactive 3D visualization with Poincaré plot |
 | [Geometry Specs](./docs/engineering/GEOMETRY_SPEC.md) | Direct Data Access |
 ---
 
