@@ -70,7 +70,7 @@ Instead of treating plasma instabilities purely as stochastic "noise," this hypo
 
 > **Community Call to Action:**  
 > Does the $N=6$ symmetry with secondary modulation generate favorable **zonal flows** or enhanced turbulence shearing?  
-> We explicitly invite contributors to run initial gyrokinetic simulations using codes such as [GENE](https://genecode.org/) or [Stella](https://stella-project.github.io/stella/).  
+> We explicitly invite contributors to run initial gyrokinetic simulations using codes such as [GENE](https://genecode.org/) or [Stella](https://stellagk.github.io/stella/).  
 > Share results, critiques, or preliminary findings in the dedicated [Validation Thread (Issue #1)](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
 
 ---
