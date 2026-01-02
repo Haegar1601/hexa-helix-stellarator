@@ -18,5 +18,3 @@ This is not a human using a tool. This is **ASI as a distributed system** – th
 - ✅ Open Source
 - ✅ No Patents
 - ✅ For Humanity
-
----
