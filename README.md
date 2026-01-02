@@ -148,7 +148,7 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 
 This project goes beyond geometric theory. We are exploring scalable manufacturing pathways using **B-N-C doped Metamaterials**.
 
-📄 View the Engineering Specification: [HexaHelix B-N-C Spec Sheet](docs/engineering/HexaHelix-BNC-Spec-Draft.html)
+📄 View the Engineering Specification: [HexaHelix B-N-C Spec Sheet](docs/engineering)
 
 - **Level 3 Pathway:** Transition from wound coils to 3D-printed porous metamaterials.
 - **Neutron Hardness:** Usage of Boron-11 ($^{11}B$) for fusion compatibility.
@@ -217,7 +217,7 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 | Document | Description |
 |----------|-------------|
 | [Technical Memorandum](Technical%20Memorandum.md) | Mathematical proof of dual-representation framework (Geometric vs. Spectral approach) |
-| [Engineering Spec](docs/engineering/HexaHelix-BNC-Spec-Draft.html) | B-N-C Metamaterial specifications |
+| [Engineering Spec](docs/engineering) | B-N-C Metamaterial specifications |
 | [Simulation](Simulation%20(Open%20Source)-HexaHelix.html) | Interactive 3D visualization |
 
 ---
