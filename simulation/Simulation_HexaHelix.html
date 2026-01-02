@@ -537,7 +537,7 @@
             <div class="controls">
                 <div class="control-group">
                     <label>Rotation Speed:</label>
-                    <input type="range" id="speed" min="0" max="100" value="30">
+                    <input type="range" id="speed" min="0" max="100" value="8">
                 </div>
                 <div class="control-group">
                     <label>Coil Twist (φ=0.618):</label>
@@ -564,6 +564,7 @@
                     <button onclick="togglePoincare()" id="poincareBtn">📊 Poincaré Plot</button>
                     <button onclick="toggleCrossSection()" id="crossBtn">✂️ Cross Section</button>
                     <button onclick="toggleTemperature()" id="tempBtn">🌡️ Temperature On</button>
+                    <button onclick="toggleParticles()" id="particleBtn" class="active">✨ Particles Off</button>
                 </div>
             </div>
             
@@ -675,16 +676,31 @@
         let stellarator, coilGroup, plasmaGroup;
         let fieldLinesGroup, crossSectionGroup, temperatureGroup;
         let autoRotate = true;
-        let rotationSpeed = 0.003;
+        let rotationSpeed = 0.0015;
         let showPlasma = true;
         let showCoils = true;
         let showFieldLines = false;
         let showCrossSection = false;
         let showTemperature = false;
         let showPoincare = false;
+        let showParticles = true; // Plasma Partikel standardmäßig an
         let twistAmount = config.twistAmount;
         let plasmaIntensity = 0.7;
         let helixTurns = config.helixTurns;  // Default: 8
+        
+        // Plasma Partikel System
+        let plasmaParticleSystem = null;
+        let particlePositions = null;
+        let particleVelocities = null;
+        let particleColors = null;
+        const PARTICLE_COUNT = 8000;
+        
+        // Plasma Fade Animation für weichen Übergang bei Field Lines
+        let plasmaTargetOpacity = 0.25;
+        let plasmaCurrentOpacity = 0.25;
+        let plasmaFadeSpeed = 0.02; // Geschwindigkeit der Überblendung
+        let hotCoreTargetOpacity = 0.5;
+        let hotCoreCurrentOpacity = 0.5;
         
         const moduleColors = [
             0xff0066, 0xff6b35, 0xffcc00,
@@ -871,14 +887,52 @@
                 emissive: 0xff006e,
                 emissiveIntensity: 0.7,
                 transparent: true,
-                opacity: 0.5
+                opacity: plasmaCurrentOpacity,
+                depthWrite: false // Bessere Transparenz-Darstellung
             });
-            plasmaGroup.add(new THREE.Mesh(plasmaGeo, plasmaMat));
+            const plasmaMesh = new THREE.Mesh(plasmaGeo, plasmaMat);
+            plasmaMesh.name = 'plasmaCore';
+            plasmaGroup.add(plasmaMesh);
             
-            // Hot core
+            // Hot core mit Glow-Effekt
             const hotCoreGeo = new THREE.TubeGeometry(plasmaCurve, 200, visualMinorRadius * plasmaIntensity * 0.15, 8, true);
-            const hotCoreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 });
-            plasmaGroup.add(new THREE.Mesh(hotCoreGeo, hotCoreMat));
+            const hotCoreMat = new THREE.MeshBasicMaterial({ 
+                color: 0xffffff, 
+                transparent: true, 
+                opacity: hotCoreCurrentOpacity,
+                depthWrite: false
+            });
+            const hotCoreMesh = new THREE.Mesh(hotCoreGeo, hotCoreMat);
+            hotCoreMesh.name = 'hotCore';
+            plasmaGroup.add(hotCoreMesh);
+            
+            // ═══════════════════════════════════════════════════════════════
+            // HOT CORE GLOW LAYERS - Weicher strahlender Übergang
+            // ═══════════════════════════════════════════════════════════════
+            const glowLayers = [
+                { radius: 0.25, opacity: 0.6, color: 0xffffcc },  // Innerer Glow (warm weiß)
+                { radius: 0.35, opacity: 0.35, color: 0xffdd88 }, // Mittlerer Glow (gold)
+                { radius: 0.45, opacity: 0.15, color: 0xff9966 }  // Äußerer Glow (orange)
+            ];
+            
+            glowLayers.forEach((layer, index) => {
+                const glowGeo = new THREE.TubeGeometry(plasmaCurve, 200, visualMinorRadius * plasmaIntensity * layer.radius, 8, true);
+                const glowMat = new THREE.MeshBasicMaterial({
+                    color: layer.color,
+                    transparent: true,
+                    opacity: layer.opacity * hotCoreCurrentOpacity,
+                    depthWrite: false,
+                    side: THREE.BackSide
+                });
+                const glowMesh = new THREE.Mesh(glowGeo, glowMat);
+                glowMesh.name = `hotCoreGlow${index}`;
+                plasmaGroup.add(glowMesh);
+            });
+            
+            // ═══════════════════════════════════════════════════════════════
+            // PLASMA PARTIKEL SYSTEM - Bewegende Fusionspartikel
+            // ═══════════════════════════════════════════════════════════════
+            createPlasmaParticles(plasmaCurve, visualMinorRadius);
             
             // Reference torus
             const torusGeo = new THREE.TorusGeometry(majorRadius, 0.02, 8, 100);
@@ -899,6 +953,164 @@
             
             // Update Physics Readout
             updatePhysicsReadout();
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // PLASMA PARTICLE SYSTEM - Animierte Fusionspartikel
+        // ═══════════════════════════════════════════════════════════════
+        
+        function createPlasmaParticles(plasmaCurve, visualMinorRadius) {
+            // Entferne altes Partikelsystem falls vorhanden
+            if (plasmaParticleSystem) {
+                plasmaGroup.remove(plasmaParticleSystem);
+                if (plasmaParticleSystem.geometry) plasmaParticleSystem.geometry.dispose();
+                if (plasmaParticleSystem.material) plasmaParticleSystem.material.dispose();
+            }
+            
+            const geometry = new THREE.BufferGeometry();
+            particlePositions = new Float32Array(PARTICLE_COUNT * 3);
+            particleVelocities = new Float32Array(PARTICLE_COUNT * 3);
+            particleColors = new Float32Array(PARTICLE_COUNT * 3);
+            
+            const majorRadius = config.majorRadius;
+            const minorRadius = visualMinorRadius * plasmaIntensity * 0.5;
+            
+            // Partikel entlang des Torus verteilen (Magnetfeldlinien-Bewegung)
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                // Toroidale Position (um den großen Ring)
+                const toroidal = Math.random() * Math.PI * 2;
+                // Poloidale Position (im kleinen Querschnitt)
+                const poloidal = Math.random() * Math.PI * 2;
+                // Radius vom Zentrum des Querschnitts (mehr Partikel im Kern)
+                const r = Math.pow(Math.random(), 0.5) * minorRadius;
+                
+                // N=6 Helix-Modulation
+                const helixMod = 0.1 * Math.sin(toroidal * 6);
+                
+                // Position berechnen (Torus-Koordinaten)
+                const R = majorRadius + r * Math.cos(poloidal) + helixMod;
+                const x = R * Math.cos(toroidal);
+                const y = r * Math.sin(poloidal) + helixMod * 0.3;
+                const z = R * Math.sin(toroidal);
+                
+                particlePositions[i * 3] = x;
+                particlePositions[i * 3 + 1] = y;
+                particlePositions[i * 3 + 2] = z;
+                
+                // Geschwindigkeit: hauptsächlich toroidal + Iota-Rotation poloidal
+                const iota = helixTurns * twistAmount / config.numHelices;
+                const speed = 0.02 + Math.random() * 0.03;
+                
+                // Toroidale + poloidale Geschwindigkeit (Feldlinien-Verfolgung)
+                particleVelocities[i * 3] = speed;     // toroidale Richtung
+                particleVelocities[i * 3 + 1] = iota * speed; // poloidale Rotation
+                particleVelocities[i * 3 + 2] = toroidal; // Startwinkel speichern
+                
+                // Farbe: Temperaturabhängig (innen heiß/weiß, außen kühler/pink)
+                const tempFactor = 1 - (r / minorRadius); // 0 = außen, 1 = innen
+                const hue = 0.95 - tempFactor * 0.15; // Pink → Rot-Orange
+                const saturation = 0.3 + (1 - tempFactor) * 0.7;
+                const lightness = 0.5 + tempFactor * 0.5; // Innen heller
+                
+                const color = new THREE.Color().setHSL(hue, saturation, lightness);
+                particleColors[i * 3] = color.r;
+                particleColors[i * 3 + 1] = color.g;
+                particleColors[i * 3 + 2] = color.b;
+            }
+            
+            geometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+            geometry.setAttribute('color', new THREE.BufferAttribute(particleColors, 3));
+            
+            // Partikel-Material mit Glow-Effekt
+            const material = new THREE.PointsMaterial({
+                size: 0.08,
+                vertexColors: true,
+                transparent: true,
+                opacity: 0.40,
+                blending: THREE.AdditiveBlending,
+                depthWrite: false,
+                sizeAttenuation: true
+            });
+            
+            plasmaParticleSystem = new THREE.Points(geometry, material);
+            plasmaParticleSystem.name = 'plasmaParticles';
+            plasmaParticleSystem.visible = showParticles;
+            plasmaGroup.add(plasmaParticleSystem);
+        }
+        
+        function updatePlasmaParticles() {
+            if (!plasmaParticleSystem || !particlePositions || !showParticles) return;
+            
+            const majorRadius = config.majorRadius;
+            const minorRadius = config.minorRadius * 2.3 * plasmaIntensity * 0.5;
+            const iota = helixTurns * twistAmount / config.numHelices;
+            
+            // Zeit für Animation - SCHNELLER für sichtbare Bewegung!
+            const time = Date.now() * 0.002;
+            
+            for (let i = 0; i < PARTICLE_COUNT; i++) {
+                // Geschwindigkeit und Startphase
+                const speed = particleVelocities[i * 3];
+                const startPhase = particleVelocities[i * 3 + 2];
+                
+                // TOROIDALE Position: Um den großen Ring
+                const toroidal = (startPhase + time * speed) % (Math.PI * 2);
+                
+                // POLOIDALE Position: Rotation im Querschnitt (folgt Feldlinie)
+                const startPoloidal = (i / PARTICLE_COUNT) * Math.PI * 2;
+                const poloidal = startPoloidal + toroidal * iota;
+                
+                // Radius vom Zentrum (verschiedene magnetische Flächen)
+                const surfaceIndex = i % 5;
+                const r = minorRadius * (0.2 + surfaceIndex * 0.16);
+                
+                // N=6 Stellarator-Shaping
+                const helixMod = 0.12 * Math.sin(toroidal * 6);
+                
+                // Position im poloidalen Querschnitt
+                const localR = r * Math.cos(poloidal);
+                const localZ = r * Math.sin(poloidal);
+                
+                // Transformation zu 3D Torus-Koordinaten
+                const R = majorRadius + localR + helixMod;
+                const x = R * Math.cos(toroidal);
+                const y = localZ + helixMod * 0.3;
+                const z = R * Math.sin(toroidal);
+                
+                particlePositions[i * 3] = x;
+                particlePositions[i * 3 + 1] = y;
+                particlePositions[i * 3 + 2] = z;
+                
+                // Farbe: Innen (heiß/weiß) → Außen (kühler/pink)
+                const tempFactor = 1 - (surfaceIndex / 5);
+                const hue = 0.95 - tempFactor * 0.12;
+                const saturation = 0.4 + (1 - tempFactor) * 0.6;
+                const lightness = 0.55 + tempFactor * 0.4;
+                
+                const color = new THREE.Color().setHSL(hue, saturation, lightness);
+                particleColors[i * 3] = color.r;
+                particleColors[i * 3 + 1] = color.g;
+                particleColors[i * 3 + 2] = color.b;
+            }
+            
+            // Geometrie aktualisieren
+            plasmaParticleSystem.geometry.attributes.position.needsUpdate = true;
+            plasmaParticleSystem.geometry.attributes.color.needsUpdate = true;
+        }
+        
+        function toggleParticles() {
+            showParticles = !showParticles;
+            const btn = document.getElementById('particleBtn');
+            
+            if (showParticles) {
+                if (plasmaParticleSystem) plasmaParticleSystem.visible = true;
+                btn.textContent = '✨ Particles Off';
+                btn.classList.add('active');
+            } else {
+                if (plasmaParticleSystem) plasmaParticleSystem.visible = false;
+                btn.textContent = '✨ Particles On';
+                btn.classList.remove('active');
+            }
         }
         
         // ═══════════════════════════════════════════════════════════════
@@ -976,12 +1188,28 @@
                     const curve = new THREE.CatmullRomCurve3(points);
                     const geometry = new THREE.TubeGeometry(curve, numSteps, 0.015, 4, false);
                     
+                    // Verbessertes Material mit Glow-Effekt für weicheren Look
                     const material = new THREE.MeshBasicMaterial({
                         color: surfaceColor,
                         transparent: true,
-                        opacity: 0.6
+                        opacity: 0.7,
+                        depthWrite: false // Bessere Transparenz-Überlagerung
                     });
-                    fieldLinesGroup.add(new THREE.Mesh(geometry, material));
+                    
+                    // Hauptlinie
+                    const mainLine = new THREE.Mesh(geometry, material);
+                    fieldLinesGroup.add(mainLine);
+                    
+                    // Äußerer Glow für weicheren Übergang
+                    const glowGeometry = new THREE.TubeGeometry(curve, numSteps, 0.035, 4, false);
+                    const glowMaterial = new THREE.MeshBasicMaterial({
+                        color: surfaceColor,
+                        transparent: true,
+                        opacity: 0.15,
+                        depthWrite: false,
+                        side: THREE.BackSide
+                    });
+                    fieldLinesGroup.add(new THREE.Mesh(glowGeometry, glowMaterial));
                 }
             }
             
@@ -1626,6 +1854,50 @@
                 stellarator.rotation.y += rotationSpeed;
             }
             
+            // ═══════════════════════════════════════════════════════════════
+            // PLASMA PARTIKEL ANIMATION - Bewegung entlang Magnetfeldlinien
+            // ═══════════════════════════════════════════════════════════════
+            updatePlasmaParticles();
+            
+            // ═══════════════════════════════════════════════════════════════
+            // PLASMA FADE ANIMATION - Weicher Übergang bei Field Lines
+            // ═══════════════════════════════════════════════════════════════
+            if (plasmaGroup && showPlasma) {
+                // Sanfte Interpolation der Plasma-Opazität
+                if (Math.abs(plasmaCurrentOpacity - plasmaTargetOpacity) > 0.001) {
+                    plasmaCurrentOpacity += (plasmaTargetOpacity - plasmaCurrentOpacity) * plasmaFadeSpeed;
+                    
+                    // Finde Plasma Core Mesh und aktualisiere Material
+                    const plasmaCore = plasmaGroup.getObjectByName('plasmaCore');
+                    if (plasmaCore && plasmaCore.material) {
+                        plasmaCore.material.opacity = plasmaCurrentOpacity;
+                        // Emissive Intensität auch anpassen für weicheren Effekt
+                        plasmaCore.material.emissiveIntensity = 0.3 + (plasmaCurrentOpacity * 0.8);
+                    }
+                }
+                
+                // Sanfte Interpolation der Hot Core Opazität
+                if (Math.abs(hotCoreCurrentOpacity - hotCoreTargetOpacity) > 0.001) {
+                    hotCoreCurrentOpacity += (hotCoreTargetOpacity - hotCoreCurrentOpacity) * plasmaFadeSpeed;
+                    
+                    const hotCore = plasmaGroup.getObjectByName('hotCore');
+                    if (hotCore && hotCore.material) {
+                        hotCore.material.opacity = hotCoreCurrentOpacity;
+                    }
+                    
+                    // ═══════════════════════════════════════════════════════════════
+                    // HOT CORE GLOW LAYERS - Synchronisiertes Fading
+                    // ═══════════════════════════════════════════════════════════════
+                    const glowOpacities = [0.6, 0.35, 0.15];
+                    for (let i = 0; i < 3; i++) {
+                        const glowLayer = plasmaGroup.getObjectByName(`hotCoreGlow${i}`);
+                        if (glowLayer && glowLayer.material) {
+                            glowLayer.material.opacity = glowOpacities[i] * hotCoreCurrentOpacity;
+                        }
+                    }
+                }
+            }
+            
             // Update physics readout every 500ms
             const now = Date.now();
             if (now - lastPhysicsUpdate > 500) {
@@ -1670,10 +1942,16 @@
                 createMagneticFieldLines();
                 btn.textContent = '🧲 Field Lines Off';
                 btn.classList.add('active');
+                // Weicher Übergang: Plasma dimmen
+                plasmaTargetOpacity = 0.12;
+                hotCoreTargetOpacity = 0.25;
             } else {
                 if (fieldLinesGroup) fieldLinesGroup.visible = false;
                 btn.textContent = '🧲 Field Lines On';
                 btn.classList.remove('active');
+                // Plasma zurück auf normale Sichtbarkeit
+                plasmaTargetOpacity = 0.25;
+                hotCoreTargetOpacity = 0.5;
             }
         }
         
