@@ -46,19 +46,26 @@ We hypothesize that the most stable magnetic path aligns with the **Kelvin Cell*
 
 - **Design Rationale:** The AI algorithm utilized the Kelvin-partitioning of the toroidal volume as a guide for the coil winding path. By aligning the magnetic field periodicity with the hexagonal faces of this theoretical lattice, the design aims to minimize flux surface distortion and optimize volumetric field efficiency.
 
-### 4. Breathing Mode Hypothesis (Highly Speculative Extension)
+## 4. Geometric Breathing & Turbulence Shearing (Hypothesis)
 
-**Note:** This section explores a highly speculative idea inspired by observed turbulence dynamics and external concepts. It is not grounded in direct simulations or experimental evidence for this geometry and requires rigorous validation (e.g., gyrokinetic codes like GENE or Stella).
+**Note:** This section explores a speculative extension of the $N=6$ geometry. It is an invitation for computational fluid dynamics (CFD) and gyrokinetic simulation experts to test these assumptions.
 
-Recent experiments on the Large Helical Device (LHD) have directly observed the coexistence of local (high-k) and nonlocal (low-frequency) turbulence, with modulated heating influencing their balance and spatial coupling [Kenmochi et al., Commun. Phys. 8, 354 (2025)](https://www.nature.com/articles/s42005-025-02454-x).
+### The "Geometric Pump" Concept
+While the Hexa-Helix geometry is static, a plasma packet traveling along the magnetic field lines experiences the radial modulation ($\epsilon_2 \approx 0.03$) as a periodic compression and expansion. We term this the **"Breathing Mode."**
 
-Building loosely on this and concepts like oscillating fields for plasma compression/heating (e.g., NT-Tao's pulsed high-frequency approach):
+* **Turbulence Neutralization:** Inspired by recent LHD experiments [Kenmochi et al., 2025](https://www.nature.com/articles/s42005-025-02454-x), we hypothesize that the $N=6$ symmetry induces a **periodic shearing rate**. This could act like a "spatial filter," shredding large-scale turbulence (low-k modes) before they can trigger significant heat transport.
+* **Active-Dynamic Resonance:** By potentially "tuning" the plasma flow velocity against the geometric period, the system might achieve a state of **destructive interference** with ITG (Ion Temperature Gradient) instabilities.
 
-- The secondary radial modulation (ϵ₂ ≈ 0.03) introduces a **dynamic "Breathing Mode" hypothesis** – a periodic radial variation intended to mimic transient effects.
-- **Speculative Mechanism:** Applied vibration frequencies or harmonic excitations could potentially shift turbulence regimes, increasing energy density and heating efficiency.
-- **Further Speculation:** The N=6 symmetry might enable resonance effects (e.g., destructive interference-like filtering of certain turbulence modes), but this is purely hypothetical and untested.
+### Theoretical Mechanism: From Chaos to Resonance
+Instead of viewing plasma instabilities as "noise," this model treats them as frequencies that can be managed. The high magnetic stiffness of the interlaced $N=6$ coils provides the "anchor" needed to maintain this resonance:
 
-This remains a conceptual exploration – community simulations (e.g., turbulence transport via GK codes) are explicitly invited in the [Validation Thread](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
+| Concept | Traditional Stellarator | Hexa-Helix Hypothesis |
+| :--- | :--- | :--- |
+| **Turbulence Profile** | Stochastic / Managed via Shear | Patterned / Managed via Resonance |
+| **Radial Transport** | Diffusive | Filtered by "Geometric Breathing" |
+| **Stability Framework** | Static equilibrium | Dynamic geometric stabilization |
+
+> **Community Call to Action:** Does the $N=6$ symmetry create favorable **Zonal Flows**? We are looking for contributors to run initial [GENE](https://genecode.org/) or [Stella](https://stella-project.github.io/stella/) simulations. Join the discussion in [Issue #1](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
 
 ---
 
