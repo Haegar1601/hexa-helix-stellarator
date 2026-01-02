@@ -87,8 +87,8 @@ The design utilizes 6 independent helical coils wound around a torus with a spec
 | Parameter | Value | Notes |
 |-----------|-------|-------|
 | Major Radius ($R$) | 5.5 m | Scale comparable to W7-X |
-| Minor Radius ($a$) | 1.2 m | Optimized for interlacing |
-| Plasma Radius | 0.53 m | Effective confinement region |
+| Minor Radius ($a$) | 0.53 m | W7-X-like plasma boundary (LCFS) |
+| Aspect Ratio ($A$) | 10.4 | $R/a$ ratio for optimized confinement |
 | Symmetry ($N$) | 6 | Hexagonal Symmetry |
 | Coil Count | 6 | Continuous Interwoven Helices |
 | Helix Turns | 8 | Poloidal turns per toroidal transit |
@@ -101,10 +101,10 @@ The design utilizes 6 independent helical coils wound around a torus with a spec
 
 | Parameter | Value | Notes |
 |-----------|-------|-------|
-| Magnetic Field ($B$) | 3 Tesla | On-axis field strength |
-| Plasma Volume | 30 m³ | Confined plasma region |
+| Magnetic Field ($B_0$) | 3.0 T | On-axis field strength |
+| Plasma Volume ($V$) | 30 m³ | Confined plasma region |
 | Heating Power | 14 MW | Total auxiliary heating |
-| Plasma Temperature | 100 million °C | Target core temperature |
+| Plasma Temperature | 100 million °C | Target core temperature (~8.6 keV) |
 
 ### VMEC Configuration
 
@@ -131,7 +131,7 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 
 - **Golden Ratio Twist ($\phi \approx 0.618$):** The twist amount has been optimized to the Golden Ratio for maximum interlacing efficiency.
 - **Kelvin Resonance ($\epsilon_2 \approx 0.03$):** Added a second harmonic modulation to couple the magnetic field to the underlying spatial grid.
-- **High-Purity $N=8$ Turns:** Optimized to 8 turns for balanced $n=6$ spectrum integrity and reduced mechanical complexity.
+- **8 Poloidal Turns:** Optimized to 8 helical turns per toroidal transit for balanced $n=6$ spectrum integrity and reduced mechanical complexity.
 
 ---
 
@@ -148,7 +148,7 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 
 This project goes beyond geometric theory. We are exploring scalable manufacturing pathways using **B-N-C doped Metamaterials**.
 
-📄 View the Engineering Specification: [HexaHelix B-N-C Spec Sheet](docs/engineering)
+📄 View the Engineering Specification: [HexaHelix B-N-C Spec Sheet](docs/engineering/HexaHelix-BNC-Spec-Draft.html)
 
 - **Level 3 Pathway:** Transition from wound coils to 3D-printed porous metamaterials.
 - **Neutron Hardness:** Usage of Boron-11 ($^{11}B$) for fusion compatibility.
@@ -217,8 +217,8 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 | Document | Description |
 |----------|-------------|
 | [Technical Memorandum](Technical%20Memorandum.md) | Mathematical proof of dual-representation framework (Geometric vs. Spectral approach) |
-| [Engineering Spec](docs/engineering) | B-N-C Metamaterial specifications |
-| [Simulation](https://github.com/Haegar1601/hexa-helix-stellarator/blob/main/simulation/Simulation%20(Open%20Source)-HexaHelix.html) | Interactive 3D visualization (Download and open) |
+| [Engineering Spec](docs/engineering/HexaHelix-BNC-Spec-Draft.html) | B-N-C Metamaterial specifications |
+| [Simulation](Simulation%20(Open%20Source)-HexaHelix.html) | Interactive 3D visualization |
 
 ---
 
