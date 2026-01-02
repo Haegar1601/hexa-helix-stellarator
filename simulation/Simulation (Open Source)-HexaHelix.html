@@ -422,7 +422,7 @@
                 
                 <div class="control-row">
                     <label>Helix Turns (N=6):</label>
-                    <input type="range" id="helixTurns" min="6" max="12" value="10" step="1">
+                    <input type="range" id="helixTurns" min="6" max="10" value="8" step="2">
                     <span class="value" id="turnsValue">8</span>
                 </div>
                 
@@ -475,7 +475,7 @@
         // Configuration
         const config = {
             numHelices: 6,
-            helixTurns: 10,
+            helixTurns: 8,
             twistAmount: 0.618,  // Golden Ratio!
             majorRadius: 5.5,
             minorRadius: 1.2,
@@ -502,7 +502,7 @@
         let showCoils = true;
         let twistAmount = config.twistAmount;
         let plasmaIntensity = 0.7;
-        let helixTurns = config.helixTurns;
+        let helixTurns = config.helixTurns;  // Default: 8
         
         const moduleColors = [
             0xff0066, 0xff6b35, 0xffcc00,
@@ -1014,4 +1014,3 @@
     </script>
 </body>
 </html>
-
