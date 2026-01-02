@@ -91,7 +91,7 @@ The design utilizes 6 independent helical coils wound around a torus with a spec
 | Plasma Radius | 0.53 m | Effective confinement region |
 | Symmetry ($N$) | 6 | Hexagonal Symmetry |
 | Coil Count | 6 | Continuous Interwoven Helices |
-| Helix Turns | 10 | Poloidal turns per toroidal transit |
+| Helix Turns | 8-10 | Poloidal turns per toroidal transit |
 | Phase Offset ($\delta$) | $60°$ | Strict offset: $\delta_h = h \cdot \pi/3$ |
 | Twist Amount ($\phi$) | 0.618 | Golden Ratio optimization |
 | Modulation ($\epsilon_1$) | 0.15 | Primary radial excursion |
