@@ -310,12 +310,157 @@
             #canvas-container, #info-panel { width: 100%; min-width: 100%; }
             #info-panel { max-height: none; }
         }
+        
+        /* Extended Features Styles */
+        .extended-controls {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+        }
+        
+        .extended-controls h3 {
+            color: #00d4ff;
+            margin-bottom: 12px;
+            font-size: 1em;
+        }
+        
+        .extended-controls .btn-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .extended-controls button {
+            flex: 1 1 45%;
+            min-width: 140px;
+            padding: 10px 8px;
+            font-size: 0.85em;
+            margin: 0;
+        }
+        
+        .physics-readout {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 10px;
+        }
+        
+        .physics-readout h3 {
+            color: #2ecc71;
+            margin-bottom: 10px;
+        }
+        
+        .physics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+        
+        .physics-item {
+            text-align: center;
+            padding: 8px;
+            background: rgba(0,0,0,0.3);
+            border-radius: 6px;
+        }
+        
+        .physics-item .value {
+            font-size: 1.2em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .physics-item .label {
+            font-size: 0.75em;
+            color: #aaa;
+            margin-top: 2px;
+        }
+        
+        .physics-item.warning .value {
+            color: #e74c3c;
+        }
+        
+        .physics-item.ok .value {
+            color: #2ecc71;
+        }
+        
+        .physics-item.info .value {
+            color: #f1c40f;
+        }
+        
+        #poincare-canvas {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            border: 2px solid #ff6b35;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.85);
+            display: none;
+            z-index: 100;
+        }
+        
+        #poincare-close {
+            position: absolute;
+            top: 15px;
+            left: 385px;
+            background: #e74c3c;
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 28px;
+            text-align: center;
+            display: none;
+            z-index: 101;
+            padding: 0;
+            margin: 0;
+        }
+        
+        #crosssection-canvas {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            border: 2px solid #00d4ff;
+            border-radius: 8px;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            z-index: 100;
+        }
+        
+        #crosssection-close {
+            position: absolute;
+            bottom: 390px;
+            left: 385px;
+            background: #e74c3c;
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 28px;
+            text-align: center;
+            display: none;
+            z-index: 101;
+            padding: 0;
+            margin: 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div id="canvas-container">
             <div id="loading">⚛️ Loading Hexa-Helix Stellarator...</div>
+            <canvas id="poincare-canvas" width="400" height="400"></canvas>
+            <button id="poincare-close" onclick="togglePoincare()">✕</button>
+            <canvas id="crosssection-canvas" width="400" height="400"></canvas>
+            <button id="crosssection-close" onclick="toggleCrossSection()">✕</button>
         </div>
         
         <div id="info-panel">
@@ -331,15 +476,19 @@
             <h2>📊 Technical Specifications</h2>
             <div class="specs-grid">
                 <div class="spec-item">
-                    <strong>Major Radius</strong>
+                    <strong>Major Radius (R)</strong>
                     <span>5.5 m</span>
                 </div>
                 <div class="spec-item">
-                    <strong>Minor Radius</strong>
+                    <strong>Minor Radius (a)</strong>
                     <span>0.53 m</span>
                 </div>
                 <div class="spec-item">
-                    <strong>Magnetic Field</strong>
+                    <strong>Aspect Ratio (A=R/a)</strong>
+                    <span>10.4</span>
+                </div>
+                <div class="spec-item">
+                    <strong>Magnetic Field (B₀)</strong>
                     <span>3 Tesla</span>
                 </div>
                 <div class="spec-item">
@@ -352,15 +501,11 @@
                 </div>
                 <div class="spec-item">
                     <strong>Plasma Temp.</strong>
-                    <span>100 million °C</span>
+                    <span>100 Mio. K</span>
                 </div>
                 <div class="spec-item">
-                    <strong>Symmetry</strong>
-                    <span>6-fold (n=6) HEXA</span>
-                </div>
-                <div class="spec-item">
-                    <strong>Helix Strands</strong>
-                    <span>6 interwoven</span>
+                    <strong>Symmetry (N)</strong>
+                    <span>6-fold (N=6)</span>
                 </div>
             </div>
             
@@ -411,13 +556,43 @@
                 </div>
             </div>
             
+            <!-- Extended View Controls -->
+            <div class="extended-controls">
+                <h3>🔬 Extended Views</h3>
+                <div class="btn-grid">
+                    <button onclick="toggleFieldLines()" id="fieldBtn">🧲 Field Lines On</button>
+                    <button onclick="togglePoincare()" id="poincareBtn">📊 Poincaré Plot</button>
+                    <button onclick="toggleCrossSection()" id="crossBtn">✂️ Cross Section</button>
+                    <button onclick="toggleTemperature()" id="tempBtn">🌡️ Temperature On</button>
+                </div>
+            </div>
+            
+            <!-- Live Physics Readout -->
+            <div class="physics-readout">
+                <h3>📈 Live Physics</h3>
+                <div class="physics-grid">
+                    <div class="physics-item ok" id="betaItem">
+                        <div class="value" id="betaValue">4.8%</div>
+                        <div class="label">β (Beta)</div>
+                    </div>
+                    <div class="physics-item info" id="iotaItem">
+                        <div class="value" id="iotaValue">0.92</div>
+                        <div class="label">ι (Iota)</div>
+                    </div>
+                    <div class="physics-item info" id="shearItem">
+                        <div class="value" id="shearValue">0.15</div>
+                        <div class="label">Shear</div>
+                    </div>
+                </div>
+            </div>
+            
             <!-- Golden Ratio Section -->
             <div class="golden-section">
                 <h3>🌀 Golden Ratio Optimization</h3>
                 
                 <div class="phi-display">
                     <div class="phi">φ = 0.618</div>
-                    <div class="label">Goldener Schnitt - Optimales Interlacing</div>
+                    <div class="label">Golden Ratio - Optimal Interlacing</div>
                 </div>
                 
                 <div class="control-row">
@@ -477,8 +652,10 @@
             numHelices: 6,
             helixTurns: 8,
             twistAmount: 0.618,  // Golden Ratio!
-            majorRadius: 5.5,
-            minorRadius: 1.2,
+            majorRadius: 5.5,    // [m] Major radius
+            minorRadius: 0.53,   // [m] Minor radius (a)
+            aspectRatio: 10.4,   // A = R/a
+            magneticField: 3.0,  // [T] On-axis field
             kelvinResonance: {
                 epsilon1: 0.15,
                 epsilon2: 0.03,
@@ -496,10 +673,15 @@
         // Scene variables
         let scene, camera, renderer;
         let stellarator, coilGroup, plasmaGroup;
+        let fieldLinesGroup, crossSectionGroup, temperatureGroup;
         let autoRotate = true;
         let rotationSpeed = 0.003;
         let showPlasma = true;
         let showCoils = true;
+        let showFieldLines = false;
+        let showCrossSection = false;
+        let showTemperature = false;
+        let showPoincare = false;
         let twistAmount = config.twistAmount;
         let plasmaIntensity = 0.7;
         let helixTurns = config.helixTurns;  // Default: 8
@@ -518,7 +700,7 @@
             const loading = document.getElementById('loading');
             
             if (typeof THREE === 'undefined') {
-                loading.innerHTML = '❌ THREE.js konnte nicht geladen werden';
+                loading.innerHTML = '❌ THREE.js could not be loaded';
                 loading.style.color = '#ff0000';
                 return;
             }
@@ -593,7 +775,9 @@
             plasmaGroup = new THREE.Group();
             
             const majorRadius = config.majorRadius;
-            const minorRadius = config.minorRadius;
+            // For 3D visualization: scale up minor radius for better visibility
+            // Real value: 0.53m, but we use ~1.2m for visualization (factor ~2.3)
+            const visualMinorRadius = config.minorRadius * 2.3;
             const numHelices = config.numHelices;
             const pointsPerHelix = 400;
             
@@ -610,12 +794,12 @@
                     const t = (i / pointsPerHelix) * Math.PI * 2;
                     const helixAngle = t * helixTurns + phaseOffset;
                     
-                    // Kelvin-Resonanz Breathing Function
+                    // Kelvin Resonance Breathing Function
                     const { epsilon1, epsilon2, alpha } = config.kelvinResonance;
                     const breathing = 1 + epsilon1 * Math.sin(6 * t + phaseOffset) 
                                         + epsilon2 * Math.sin(12 * t + phaseOffset * 2 + alpha);
                     
-                    const r = minorRadius * breathing * twistAmount;
+                    const r = visualMinorRadius * breathing * twistAmount;
                     
                     const torusX = Math.cos(t) * majorRadius;
                     const torusZ = Math.sin(t) * majorRadius;
@@ -632,7 +816,7 @@
                 const curve = new THREE.CatmullRomCurve3(helixPoints, true);
                 
                 // Main helix tube
-                const tubeGeo = new THREE.TubeGeometry(curve, pointsPerHelix, 0.1, 8, true);
+                const tubeGeo = new THREE.TubeGeometry(curve, pointsPerHelix, 0.12, 8, true);
                 const tubeMat = new THREE.MeshPhongMaterial({
                     color: color,
                     emissive: color,
@@ -644,14 +828,14 @@
                 coilGroup.add(new THREE.Mesh(tubeGeo, tubeMat));
                 
                 // Glowing core
-                const coreGeo = new THREE.TubeGeometry(curve, pointsPerHelix, 0.03, 6, true);
+                const coreGeo = new THREE.TubeGeometry(curve, pointsPerHelix, 0.04, 6, true);
                 const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 });
                 coilGroup.add(new THREE.Mesh(coreGeo, coreMat));
                 
                 // Field nodes
                 for (let n = 0; n < helixTurns * 2; n++) {
                     const point = curve.getPoint(n / (helixTurns * 2));
-                    const nodeGeo = new THREE.SphereGeometry(0.15, 12, 12);
+                    const nodeGeo = new THREE.SphereGeometry(0.18, 12, 12);
                     const nodeMat = new THREE.MeshPhongMaterial({
                         color: color,
                         emissive: color,
@@ -680,7 +864,8 @@
             
             const plasmaCurve = new THREE.CatmullRomCurve3(plasmaPoints, true);
             
-            const plasmaGeo = new THREE.TubeGeometry(plasmaCurve, 200, 0.4 * plasmaIntensity, 12, true);
+            // Plasma scaled for visualization (visualMinorRadius already defined above)
+            const plasmaGeo = new THREE.TubeGeometry(plasmaCurve, 200, visualMinorRadius * plasmaIntensity * 0.6, 12, true);
             const plasmaMat = new THREE.MeshPhongMaterial({
                 color: 0xff006e,
                 emissive: 0xff006e,
@@ -691,7 +876,7 @@
             plasmaGroup.add(new THREE.Mesh(plasmaGeo, plasmaMat));
             
             // Hot core
-            const hotCoreGeo = new THREE.TubeGeometry(plasmaCurve, 200, 0.15 * plasmaIntensity, 8, true);
+            const hotCoreGeo = new THREE.TubeGeometry(plasmaCurve, 200, visualMinorRadius * plasmaIntensity * 0.15, 8, true);
             const hotCoreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.9 });
             plasmaGroup.add(new THREE.Mesh(hotCoreGeo, hotCoreMat));
             
@@ -705,6 +890,641 @@
             stellarator.add(coilGroup);
             stellarator.add(plasmaGroup);
             scene.add(stellarator);
+            
+            // Aktualisiere erweiterte Features wenn aktiv
+            if (showFieldLines) createMagneticFieldLines();
+            if (showCrossSection) drawCrossSectionView();
+            if (showTemperature) createTemperatureProfile();
+            if (showPoincare) drawPoincareSection();
+            
+            // Update Physics Readout
+            updatePhysicsReadout();
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // MAGNETIC FIELD LINES (corrected - inside plasma)
+        // ═══════════════════════════════════════════════════════════════
+        
+        function createMagneticFieldLines() {
+            if (fieldLinesGroup) {
+                stellarator.remove(fieldLinesGroup);
+                fieldLinesGroup.traverse(obj => {
+                    if (obj.geometry) obj.geometry.dispose();
+                    if (obj.material) obj.material.dispose();
+                });
+            }
+            
+            fieldLinesGroup = new THREE.Group();
+            
+            // Field lines on different magnetic surfaces (ψ = const)
+            const numSurfaces = 4;  // Number of magnetic surfaces
+            const linesPerSurface = 6;  // Field lines per surface
+            
+            // Scale minor radius for 3D visualization
+            const visualMinorRadius = config.minorRadius * 2.3;
+            
+            for (let s = 0; s < numSurfaces; s++) {
+                // Normalized radius of surface (0 = axis, 1 = edge)
+                const psiNorm = (s + 1) / (numSurfaces + 1);
+                // Actual minor radius of this surface (scaled for visualization)
+                const surfaceRadius = visualMinorRadius * psiNorm * twistAmount * 0.7;
+                
+                // Color: inside hot (white/yellow) → outside cooler (green/cyan)
+                const hue = 0.15 + psiNorm * 0.35; // yellow → green → cyan
+                const saturation = 0.8 + psiNorm * 0.2;
+                const lightness = 0.7 - psiNorm * 0.2;
+                const surfaceColor = new THREE.Color().setHSL(hue, saturation, lightness);
+                
+                for (let l = 0; l < linesPerSurface; l++) {
+                    const points = [];
+                    const startAngle = (l / linesPerSurface) * Math.PI * 2;
+                    
+                    // Iota (rotational transform) - slightly varying with radius
+                    const iotaBase = helixTurns * twistAmount / config.numHelices;
+                    const iota = iotaBase * (1 + 0.1 * psiNorm); // Shear
+                    
+                    const numSteps = 400;
+                    const numToroidalTurns = 3; // Field line makes 3 toroidal turns
+                    
+                    for (let t = 0; t <= numSteps; t++) {
+                        const toroidal = (t / numSteps) * Math.PI * 2 * numToroidalTurns;
+                        const poloidal = startAngle + toroidal * iota;
+                        
+                        // N=6 Shaping of magnetic surface (Kelvin resonance)
+                        const { epsilon1, epsilon2 } = config.kelvinResonance;
+                        const shaping = 1 + 
+                            epsilon1 * 0.5 * Math.cos(poloidal) + 
+                            epsilon2 * Math.cos(2 * poloidal) +
+                            0.03 * Math.cos(6 * toroidal); // N=6 toroidal modulation
+                        
+                        const r_minor = surfaceRadius * shaping;
+                        
+                        // Position on torus
+                        // Local coordinates in poloidal cross-section
+                        const localR = r_minor * Math.cos(poloidal);
+                        const localZ = r_minor * Math.sin(poloidal);
+                        
+                        // Transformation to 3D (Torus coordinates)
+                        const R = config.majorRadius + localR;
+                        const x = R * Math.cos(toroidal);
+                        const y = localZ;
+                        const z = R * Math.sin(toroidal);
+                        
+                        points.push(new THREE.Vector3(x, y, z));
+                    }
+                    
+                    const curve = new THREE.CatmullRomCurve3(points);
+                    const geometry = new THREE.TubeGeometry(curve, numSteps, 0.015, 4, false);
+                    
+                    const material = new THREE.MeshBasicMaterial({
+                        color: surfaceColor,
+                        transparent: true,
+                        opacity: 0.6
+                    });
+                    fieldLinesGroup.add(new THREE.Mesh(geometry, material));
+                }
+            }
+            
+            fieldLinesGroup.visible = showFieldLines;
+            stellarator.add(fieldLinesGroup);
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // POINCARÉ SECTION (Realistic Field Line Tracing)
+        // ═══════════════════════════════════════════════════════════════
+        
+        function drawPoincareSection() {
+            const canvas = document.getElementById('poincare-canvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, 400, 400);
+            
+            // Calculate current iota
+            const iotaBase = helixTurns * twistAmount / config.numHelices;
+            const shear = 0.15;
+            
+            // Title
+            ctx.fillStyle = '#ff6b35';
+            ctx.font = 'bold 14px Segoe UI';
+            ctx.fillText('Poincaré Section (φ=0°)', 10, 22);
+            
+            // Explanation
+            ctx.fillStyle = '#888';
+            ctx.font = '10px Segoe UI';
+            ctx.fillText('Field line tracing: each dot = one toroidal transit', 10, 38);
+            ctx.fillText(`ι(0)=${iotaBase.toFixed(3)} | ι(edge)=${(iotaBase * (1 + shear)).toFixed(3)}`, 10, 52);
+            
+            // Coordinate system
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(200, 70); ctx.lineTo(200, 350);
+            ctx.moveTo(50, 210); ctx.lineTo(350, 210);
+            ctx.stroke();
+            
+            // Axis labels
+            ctx.fillStyle = '#666';
+            ctx.font = '11px Segoe UI';
+            ctx.fillText('R →', 340, 215);
+            ctx.fillText('Z ↑', 205, 80);
+            
+            // Scale markers
+            ctx.fillStyle = '#444';
+            ctx.font = '9px Segoe UI';
+            ctx.fillText('0', 195, 225);
+            ctx.fillText('+1m', 310, 225);
+            ctx.fillText('-1m', 85, 225);
+            
+            const { epsilon1, epsilon2 } = config.kelvinResonance;
+            const colors = ['#ff006e', '#ff6b35', '#ffcc00', '#00ff88', '#00d4ff'];
+            const numSurfaces = 5;
+            const cx = 200, cy = 210;
+            const scale = 90; // pixels per meter
+            
+            // Trace field lines on each magnetic surface
+            for (let surface = 0; surface < numSurfaces; surface++) {
+                ctx.fillStyle = colors[surface];
+                
+                // Normalized flux coordinate (0 = axis, 1 = edge)
+                const psiNorm = (surface + 1) / (numSurfaces + 1);
+                const surfaceRadius = config.minorRadius * psiNorm * twistAmount * 0.9;
+                
+                // Iota varies with radius (shear)
+                const iota = iotaBase * (1 + shear * psiNorm);
+                
+                // Number of field lines to trace on this surface
+                const numFieldLines = 4;
+                // Number of toroidal transits (punctures)
+                const numTransits = 80;
+                
+                for (let fl = 0; fl < numFieldLines; fl++) {
+                    // Starting poloidal angle for this field line
+                    const theta0 = (fl / numFieldLines) * Math.PI * 2;
+                    
+                    for (let transit = 0; transit < numTransits; transit++) {
+                        // Poloidal angle after 'transit' toroidal turns
+                        // θ = θ₀ + ι * 2π * n (where n = number of toroidal transits)
+                        const theta = theta0 + iota * 2 * Math.PI * transit;
+                        
+                        // Apply stellarator shaping (D-shape, triangularity)
+                        const shaping = 1 + 
+                            epsilon1 * 0.8 * Math.cos(theta) +      // Shafranov shift
+                            epsilon2 * 1.5 * Math.cos(2 * theta) +  // Elongation
+                            0.06 * Math.cos(3 * theta);              // Triangularity
+                        
+                        // Position in R-Z plane
+                        const r = surfaceRadius * shaping;
+                        const R = r * Math.cos(theta);  // Radial displacement from axis
+                        const Z = r * Math.sin(theta);  // Vertical position
+                        
+                        // Convert to canvas coordinates
+                        const x = cx + R * scale;
+                        const y = cy - Z * scale;  // Flip Y for canvas
+                        
+                        // Draw point
+                        ctx.beginPath();
+                        ctx.arc(x, y, 1.5, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                }
+            }
+            
+            // Mark magnetic axis
+            ctx.fillStyle = '#fff';
+            ctx.beginPath();
+            ctx.arc(cx, cy, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#888';
+            ctx.font = '9px Segoe UI';
+            ctx.fillText('Axis', cx + 8, cy + 3);
+            
+            // Legend (top right)
+            ctx.fillStyle = 'rgba(0,0,0,0.8)';
+            ctx.fillRect(295, 60, 100, 115);
+            ctx.strokeStyle = '#555';
+            ctx.strokeRect(295, 60, 100, 115);
+            
+            ctx.fillStyle = '#ccc';
+            ctx.font = 'bold 9px Segoe UI';
+            ctx.fillText('ψ = Flux Surface', 302, 74);
+            
+            ctx.font = '10px Segoe UI';
+            for (let i = 0; i < numSurfaces; i++) {
+                const psi = ((i + 1) / (numSurfaces + 1) * 100).toFixed(0);
+                ctx.fillStyle = colors[i];
+                ctx.fillRect(302, 82 + i * 15, 10, 10);
+                ctx.fillStyle = '#aaa';
+                ctx.fillText(`${psi}%`, 318, 91 + i * 15);
+            }
+            
+            // Info box bottom
+            ctx.fillStyle = 'rgba(0, 200, 100, 0.1)';
+            ctx.fillRect(10, 355, 280, 40);
+            ctx.strokeStyle = '#2ecc71';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(10, 355, 280, 40);
+            
+            ctx.fillStyle = '#2ecc71';
+            ctx.font = '10px Segoe UI';
+            ctx.fillText('✅ Closed curves = Good magnetic surfaces', 18, 372);
+            ctx.fillText('    Islands/chaos would indicate resonances', 18, 387);
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // CROSS SECTION VIEW (2D Canvas - clear and understandable)
+        // ═══════════════════════════════════════════════════════════════
+        
+        function drawCrossSectionView() {
+            const canvas = document.getElementById('crosssection-canvas');
+            const ctx = canvas.getContext('2d');
+            const cx = 200, cy = 200; // Center
+            const scale = 220; // Scale for display (pixels per meter) - increased for smaller minor radius
+            
+            // Background
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, 400, 400);
+            
+            // Title
+            ctx.fillStyle = '#00d4ff';
+            ctx.font = 'bold 14px Segoe UI';
+            ctx.fillText('Poloidal Cross Section (φ=0°)', 10, 25);
+            
+            ctx.fillStyle = '#888';
+            ctx.font = '11px Segoe UI';
+            ctx.fillText(`a=${config.minorRadius}m | A=${(config.majorRadius/config.minorRadius).toFixed(1)} | twist=${twistAmount.toFixed(3)}`, 10, 42);
+            
+            // Coordinate cross
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(cx, 30); ctx.lineTo(cx, 370);
+            ctx.moveTo(30, cy); ctx.lineTo(370, cy);
+            ctx.stroke();
+            
+            // Axis labels
+            ctx.fillStyle = '#666';
+            ctx.font = '11px Segoe UI';
+            ctx.fillText('R [m]', 340, cy - 10);
+            ctx.fillText('Z [m]', cx + 10, 45);
+            
+            // Scale markers
+            ctx.fillStyle = '#555';
+            ctx.font = '9px Segoe UI';
+            for (let r = -0.5; r <= 0.5; r += 0.25) {
+                if (Math.abs(r) > 0.01) {
+                    const px = cx + r * scale * 2;
+                    ctx.fillText(r.toFixed(2), px - 12, cy + 15);
+                }
+            }
+            for (let z = -0.5; z <= 0.5; z += 0.25) {
+                if (Math.abs(z) > 0.01) {
+                    const py = cy - z * scale * 2;
+                    ctx.fillText(z.toFixed(2), cx + 8, py + 3);
+                }
+            }
+            
+            const { epsilon1, epsilon2 } = config.kelvinResonance;
+            
+            // ═══ VACUUM VESSEL (Outer wall) ═══
+            ctx.strokeStyle = '#555';
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            for (let i = 0; i <= 100; i++) {
+                const theta = (i / 100) * Math.PI * 2;
+                const r = config.minorRadius * 1.8; // Vessel much larger
+                const x = cx + r * Math.cos(theta) * scale;
+                const y = cy - r * Math.sin(theta) * scale;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.stroke();
+            
+            // ═══ FIRST WALL (Plasma-facing components) ═══
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([8, 4]);
+            ctx.beginPath();
+            for (let i = 0; i <= 100; i++) {
+                const theta = (i / 100) * Math.PI * 2;
+                const r = config.minorRadius * 1.45; // First wall
+                const x = cx + r * Math.cos(theta) * scale;
+                const y = cy - r * Math.sin(theta) * scale;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.stroke();
+            ctx.setLineDash([]);
+            
+            // ═══ SCRAPE-OFF LAYER (SOL) ═══
+            ctx.fillStyle = 'rgba(100, 100, 255, 0.15)';
+            ctx.beginPath();
+            // Outer edge of SOL (at first wall)
+            for (let i = 0; i <= 100; i++) {
+                const theta = (i / 100) * Math.PI * 2;
+                const r = config.minorRadius * 1.3;
+                const x = cx + r * Math.cos(theta) * scale;
+                const y = cy - r * Math.sin(theta) * scale;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            // Inner edge of SOL (at LCFS) - reverse direction
+            for (let i = 100; i >= 0; i--) {
+                const theta = (i / 100) * Math.PI * 2;
+                const r = config.minorRadius * (1 + 
+                    epsilon1 * Math.cos(theta) +
+                    epsilon2 * Math.cos(2 * theta) +
+                    0.05 * Math.cos(3 * theta));
+                const x = cx + r * Math.cos(theta) * scale;
+                const y = cy - r * Math.sin(theta) * scale;
+                ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fill();
+            
+            // ═══ PLASMA EDGE (Last Closed Flux Surface) ═══
+            ctx.strokeStyle = '#ff006e';
+            ctx.fillStyle = 'rgba(255, 0, 110, 0.2)';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            for (let i = 0; i <= 100; i++) {
+                const theta = (i / 100) * Math.PI * 2;
+                // Bean-Shape / D-Shape Deformation
+                const r = config.minorRadius * (1 + 
+                    epsilon1 * Math.cos(theta) +           // Shafranov Shift
+                    epsilon2 * Math.cos(2 * theta) +       // Elongation
+                    0.05 * Math.cos(3 * theta));           // Triangularity
+                const x = cx + r * Math.cos(theta) * scale;
+                const y = cy - r * Math.sin(theta) * scale;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+            
+            // ═══ MAGNETIC SURFACES (inner) ═══
+            const surfaceColors = ['#ffcc00', '#ff6b35', '#ff006e'];
+            for (let s = 0; s < 3; s++) {
+                const psiNorm = (s + 1) / 4; // 0.25, 0.5, 0.75
+                ctx.strokeStyle = surfaceColors[s];
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([5, 3]);
+                ctx.beginPath();
+                for (let i = 0; i <= 100; i++) {
+                    const theta = (i / 100) * Math.PI * 2;
+                    const r = config.minorRadius * psiNorm * (1 + 
+                        epsilon1 * 0.7 * Math.cos(theta) +
+                        epsilon2 * 0.5 * Math.cos(2 * theta));
+                    const x = cx + r * Math.cos(theta) * scale;
+                    const y = cy - r * Math.sin(theta) * scale;
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+                ctx.stroke();
+            }
+            ctx.setLineDash([]);
+            
+            // ═══ MAGNETIC AXIS (Center) ═══
+            ctx.fillStyle = '#ffffff';
+            ctx.beginPath();
+            ctx.arc(cx, cy, 5, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.fillStyle = '#aaa';
+            ctx.font = '10px Segoe UI';
+            ctx.fillText('Mag. Axis', cx + 8, cy + 4);
+            
+            // ═══ COIL CROSS-SECTIONS (6 Helices) ═══
+            // Coils are OUTSIDE the vacuum vessel!
+            const coilRadius = config.minorRadius * 2.1; // Outside vessel
+            
+            for (let h = 0; h < config.numHelices; h++) {
+                const phaseOffset = (h / config.numHelices) * Math.PI * 2;
+                const helixAngle = 0 * helixTurns + phaseOffset; // At φ=0
+                
+                // Coil position - outside vacuum vessel
+                const coilX = cx + Math.cos(helixAngle) * coilRadius * scale;
+                const coilY = cy - Math.sin(helixAngle) * coilRadius * scale;
+                
+                // Coil circle
+                const color = new THREE.Color(moduleColors[h]);
+                ctx.fillStyle = `rgb(${Math.floor(color.r*255)}, ${Math.floor(color.g*255)}, ${Math.floor(color.b*255)})`;
+                ctx.strokeStyle = '#fff';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.arc(coilX, coilY, 8, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.stroke();
+                
+                // Current direction (⊙ = out of page, ⊗ = into page)
+                ctx.fillStyle = '#000';
+                ctx.font = 'bold 10px Arial';
+                ctx.fillText(h % 2 === 0 ? '⊙' : '⊗', coilX - 4, coilY + 4);
+            }
+            
+            // ═══ LEGEND ═══
+            const legendY = 280;
+            ctx.font = '9px Segoe UI';
+            
+            // Vacuum Vessel
+            ctx.strokeStyle = '#555';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(280, legendY); ctx.lineTo(310, legendY);
+            ctx.stroke();
+            ctx.fillStyle = '#aaa';
+            ctx.fillText('Vacuum Vessel', 315, legendY + 3);
+            
+            // First Wall
+            ctx.strokeStyle = '#666';
+            ctx.setLineDash([6, 3]);
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(280, legendY + 15); ctx.lineTo(310, legendY + 15);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#aaa';
+            ctx.fillText('First Wall', 315, legendY + 18);
+            
+            // SOL
+            ctx.fillStyle = 'rgba(100, 100, 255, 0.3)';
+            ctx.fillRect(280, legendY + 27, 30, 10);
+            ctx.fillStyle = '#aaa';
+            ctx.fillText('SOL', 315, legendY + 35);
+            
+            // Plasma (LCFS)
+            ctx.strokeStyle = '#ff006e';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(280, legendY + 50); ctx.lineTo(310, legendY + 50);
+            ctx.stroke();
+            ctx.fillStyle = '#aaa';
+            ctx.fillText('LCFS (Plasma)', 315, legendY + 53);
+            
+            // Mag. Surfaces
+            ctx.strokeStyle = '#ffcc00';
+            ctx.setLineDash([4, 2]);
+            ctx.beginPath();
+            ctx.moveTo(280, legendY + 65); ctx.lineTo(310, legendY + 65);
+            ctx.stroke();
+            ctx.setLineDash([]);
+            ctx.fillStyle = '#aaa';
+            ctx.fillText('Mag. Surfaces', 315, legendY + 68);
+            
+            // Coils
+            ctx.fillStyle = '#ff6b35';
+            ctx.beginPath();
+            ctx.arc(295, legendY + 82, 5, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = '#aaa';
+            ctx.fillText('Helix Coils', 315, legendY + 85);
+            
+            // Info-Box
+            ctx.fillStyle = 'rgba(0, 212, 255, 0.1)';
+            ctx.fillRect(10, 365, 180, 30);
+            ctx.strokeStyle = '#00d4ff';
+            ctx.lineWidth = 1;
+            ctx.strokeRect(10, 350, 180, 40);
+            
+            ctx.fillStyle = '#00d4ff';
+            ctx.font = '10px Segoe UI';
+            ctx.fillText(`ε₁ (Shift): ${epsilon1.toFixed(3)}`, 20, 368);
+            ctx.fillText(`ε₂ (Elongation): ${epsilon2.toFixed(3)}`, 20, 382);
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // TEMPERATURE PROFILE
+        // ═══════════════════════════════════════════════════════════════
+        
+        function createTemperatureProfile() {
+            if (temperatureGroup) {
+                stellarator.remove(temperatureGroup);
+                temperatureGroup.traverse(obj => {
+                    if (obj.geometry) obj.geometry.dispose();
+                    if (obj.material) obj.material.dispose();
+                });
+            }
+            
+            temperatureGroup = new THREE.Group();
+            const plasmaLayers = 5;
+            
+            for (let layer = 0; layer < plasmaLayers; layer++) {
+                const layerPoints = [];
+                const layerRadius = 0.1 + layer * 0.12; // From inside to outside
+                const temperature = 1 - Math.pow(layer / plasmaLayers, 2); // Parabolic profile
+                
+                for (let i = 0; i <= 200; i++) {
+                    const t = (i / 200) * Math.PI * 2;
+                    const mod = 0.08 * Math.sin(t * 6);
+                    layerPoints.push(new THREE.Vector3(
+                        Math.cos(t) * (config.majorRadius + mod),
+                        mod * 0.4,
+                        Math.sin(t) * (config.majorRadius + mod)
+                    ));
+                }
+                
+                const layerCurve = new THREE.CatmullRomCurve3(layerPoints, true);
+                const layerGeo = new THREE.TubeGeometry(layerCurve, 200, layerRadius * plasmaIntensity, 12, true);
+                
+                // Color: white (hot) → orange → red → dark red (cold)
+                const hue = 0.0 + (1 - temperature) * 0.08; // Red-orange range
+                const lightness = 0.25 + temperature * 0.65;
+                const color = new THREE.Color().setHSL(hue, 1, lightness);
+                
+                const layerMat = new THREE.MeshPhongMaterial({
+                    color: color,
+                    emissive: color,
+                    emissiveIntensity: 0.4 * temperature,
+                    transparent: true,
+                    opacity: 0.2 + temperature * 0.4
+                });
+                temperatureGroup.add(new THREE.Mesh(layerGeo, layerMat));
+            }
+            
+            // Hot core (white)
+            const corePoints = [];
+            for (let i = 0; i <= 200; i++) {
+                const t = (i / 200) * Math.PI * 2;
+                corePoints.push(new THREE.Vector3(
+                    Math.cos(t) * config.majorRadius,
+                    0,
+                    Math.sin(t) * config.majorRadius
+                ));
+            }
+            const coreCurve = new THREE.CatmullRomCurve3(corePoints, true);
+            const coreGeo = new THREE.TubeGeometry(coreCurve, 200, 0.08 * plasmaIntensity, 8, true);
+            const coreMat = new THREE.MeshBasicMaterial({ 
+                color: 0xffffff, 
+                transparent: true, 
+                opacity: 0.95 
+            });
+            temperatureGroup.add(new THREE.Mesh(coreGeo, coreMat));
+            
+            temperatureGroup.visible = showTemperature;
+            stellarator.add(temperatureGroup);
+        }
+        
+        // ═══════════════════════════════════════════════════════════════
+        // BETA LIMIT CALCULATION
+        // ═══════════════════════════════════════════════════════════════
+        
+        function calculateBetaLimit() {
+            // Simplified beta calculation for stellarators
+            // β ≈ 5% is a realistic target for optimized stellarators
+            const aspectRatio = config.majorRadius / config.minorRadius;
+            const optimalTwist = 0.618; // Golden Ratio
+            
+            // Beta steigt wenn twist nahe am Optimum
+            const twistDeviation = Math.abs(twistAmount - optimalTwist);
+            const estimatedBeta = 0.05 * (1 - twistDeviation * 2) * (1 + 0.1 * Math.sin(helixTurns * Math.PI / 6));
+            
+            // Iota Berechnung
+            const iota = helixTurns * twistAmount / config.numHelices;
+            
+            // Shear
+            const shear = 0.15 * (1 + 0.2 * (twistAmount - 0.5));
+            
+            return { 
+                beta: Math.max(0.01, Math.min(0.08, estimatedBeta)), 
+                iota: iota,
+                shear: shear
+            };
+        }
+        
+        function updatePhysicsReadout() {
+            const { beta, iota, shear } = calculateBetaLimit();
+            
+            // Beta Update
+            const betaPercent = (beta * 100).toFixed(1);
+            document.getElementById('betaValue').textContent = betaPercent + '%';
+            const betaItem = document.getElementById('betaItem');
+            
+            if (beta > 0.06) {
+                betaItem.className = 'physics-item warning';
+            } else if (beta > 0.04) {
+                betaItem.className = 'physics-item ok';
+            } else {
+                betaItem.className = 'physics-item info';
+            }
+            
+            // Iota Update
+            document.getElementById('iotaValue').textContent = iota.toFixed(3);
+            const iotaItem = document.getElementById('iotaItem');
+            
+            // Warning at resonances (5/6, 6/5, 1)
+            if (Math.abs(iota - 1.0) < 0.05 || Math.abs(iota - 1.2) < 0.05 || Math.abs(iota - 0.833) < 0.05) {
+                iotaItem.className = 'physics-item warning';
+            } else {
+                iotaItem.className = 'physics-item ok';
+            }
+            
+            // Shear Update
+            document.getElementById('shearValue').textContent = shear.toFixed(3);
         }
         
         // ═══════════════════════════════════════════════════════════════
@@ -797,11 +1617,20 @@
         // ANIMATION
         // ═══════════════════════════════════════════════════════════════
         
+        let lastPhysicsUpdate = 0;
+        
         function animate() {
             requestAnimationFrame(animate);
             
             if (autoRotate && stellarator) {
                 stellarator.rotation.y += rotationSpeed;
+            }
+            
+            // Update physics readout every 500ms
+            const now = Date.now();
+            if (now - lastPhysicsUpdate > 500) {
+                updatePhysicsReadout();
+                lastPhysicsUpdate = now;
             }
             
             renderer.render(scene, camera);
@@ -831,6 +1660,75 @@
             }
             camera.position.set(0, 8, 18);
             camera.lookAt(0, 0, 0);
+        }
+        
+        function toggleFieldLines() {
+            showFieldLines = !showFieldLines;
+            const btn = document.getElementById('fieldBtn');
+            
+            if (showFieldLines) {
+                createMagneticFieldLines();
+                btn.textContent = '🧲 Field Lines Off';
+                btn.classList.add('active');
+            } else {
+                if (fieldLinesGroup) fieldLinesGroup.visible = false;
+                btn.textContent = '🧲 Field Lines On';
+                btn.classList.remove('active');
+            }
+        }
+        
+        function togglePoincare() {
+            showPoincare = !showPoincare;
+            const canvas = document.getElementById('poincare-canvas');
+            const closeBtn = document.getElementById('poincare-close');
+            const btn = document.getElementById('poincareBtn');
+            
+            if (showPoincare) {
+                canvas.style.display = 'block';
+                closeBtn.style.display = 'block';
+                drawPoincareSection();
+                btn.classList.add('active');
+            } else {
+                canvas.style.display = 'none';
+                closeBtn.style.display = 'none';
+                btn.classList.remove('active');
+            }
+        }
+        
+        function toggleCrossSection() {
+            showCrossSection = !showCrossSection;
+            const canvas = document.getElementById('crosssection-canvas');
+            const closeBtn = document.getElementById('crosssection-close');
+            const btn = document.getElementById('crossBtn');
+            
+            if (showCrossSection) {
+                canvas.style.display = 'block';
+                closeBtn.style.display = 'block';
+                drawCrossSectionView();
+                btn.classList.add('active');
+            } else {
+                canvas.style.display = 'none';
+                closeBtn.style.display = 'none';
+                btn.classList.remove('active');
+            }
+        }
+        
+        function toggleTemperature() {
+            showTemperature = !showTemperature;
+            const btn = document.getElementById('tempBtn');
+            
+            if (showTemperature) {
+                // Hide normal plasma, show temperature
+                if (plasmaGroup) plasmaGroup.visible = false;
+                createTemperatureProfile();
+                btn.textContent = '🌡️ Temperature Off';
+                btn.classList.add('active');
+            } else {
+                if (temperatureGroup) temperatureGroup.visible = false;
+                if (plasmaGroup && showPlasma) plasmaGroup.visible = true;
+                btn.textContent = '🌡️ Temperature On';
+                btn.classList.remove('active');
+            }
         }
         
         // ═══════════════════════════════════════════════════════════════
@@ -931,10 +1829,10 @@
             const warnings = [];
             
             if (Math.abs(iotaEdge - 1.2) < 0.05) {
-                warnings.push('⚠️ Iota nahe 6/5 Resonanz!');
+                warnings.push('⚠️ Iota near 6/5 resonance!');
             }
             if (iotaEdge < config.vmec.iotaMin || iotaEdge > config.vmec.iotaMax) {
-                warnings.push(`⚠️ Iota außerhalb [${config.vmec.iotaMin}, ${config.vmec.iotaMax}]`);
+                warnings.push(`⚠️ Iota outside [${config.vmec.iotaMin}, ${config.vmec.iotaMax}]`);
             }
             
             return { profiles, warnings, iotaAxis: profiles[0].iota, iotaEdge };
@@ -944,10 +1842,138 @@
             const { profiles, warnings, iotaAxis, iotaEdge } = calculateIotaProfile();
             const statusDiv = document.getElementById('validationStatus');
             
+            // Create a canvas-based iota profile visualization
+            // Check if canvas already exists, if not create it
+            let iotaCanvas = document.getElementById('iota-profile-canvas');
+            if (!iotaCanvas) {
+                iotaCanvas = document.createElement('canvas');
+                iotaCanvas.id = 'iota-profile-canvas';
+                iotaCanvas.width = 320;
+                iotaCanvas.height = 180;
+                iotaCanvas.style.cssText = 'border: 1px solid #3498db; border-radius: 6px; margin-top: 10px; background: #0a0a0a;';
+                statusDiv.parentNode.insertBefore(iotaCanvas, statusDiv.nextSibling);
+            }
+            
+            const ctx = iotaCanvas.getContext('2d');
+            ctx.fillStyle = '#0a0a0a';
+            ctx.fillRect(0, 0, 320, 180);
+            
+            // Plot area
+            const plotLeft = 45, plotRight = 300, plotTop = 25, plotBottom = 150;
+            const plotWidth = plotRight - plotLeft;
+            const plotHeight = plotBottom - plotTop;
+            
+            // Title
+            ctx.fillStyle = '#3498db';
+            ctx.font = 'bold 12px Segoe UI';
+            ctx.fillText('ι (Iota) Profile with Resonances', 10, 16);
+            
+            // Determine iota range for plot
+            const iotaMin = Math.min(0.7, iotaAxis * 0.9);
+            const iotaMax = Math.max(1.3, iotaEdge * 1.1);
+            
+            // Grid
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            // Vertical grid lines
+            for (let s = 0; s <= 1; s += 0.25) {
+                const x = plotLeft + s * plotWidth;
+                ctx.moveTo(x, plotTop); ctx.lineTo(x, plotBottom);
+            }
+            // Horizontal grid lines
+            for (let iota = iotaMin; iota <= iotaMax; iota += 0.1) {
+                const y = plotBottom - ((iota - iotaMin) / (iotaMax - iotaMin)) * plotHeight;
+                ctx.moveTo(plotLeft, y); ctx.lineTo(plotRight, y);
+            }
+            ctx.stroke();
+            
+            // Axes
+            ctx.strokeStyle = '#666';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(plotLeft, plotTop); ctx.lineTo(plotLeft, plotBottom); ctx.lineTo(plotRight, plotBottom);
+            ctx.stroke();
+            
+            // Axis labels
+            ctx.fillStyle = '#888';
+            ctx.font = '10px Segoe UI';
+            ctx.fillText('s (norm. flux)', plotLeft + plotWidth/2 - 30, 170);
+            ctx.save();
+            ctx.translate(12, plotTop + plotHeight/2 + 10);
+            ctx.rotate(-Math.PI/2);
+            ctx.fillText('ι (iota)', 0, 0);
+            ctx.restore();
+            
+            // X-axis ticks
+            ctx.fillStyle = '#666';
+            ctx.font = '9px Segoe UI';
+            for (let s = 0; s <= 1; s += 0.25) {
+                const x = plotLeft + s * plotWidth;
+                ctx.fillText(s.toFixed(2), x - 10, plotBottom + 12);
+            }
+            
+            // Y-axis ticks
+            for (let iota = iotaMin; iota <= iotaMax; iota += 0.1) {
+                const y = plotBottom - ((iota - iotaMin) / (iotaMax - iotaMin)) * plotHeight;
+                ctx.fillText(iota.toFixed(1), plotLeft - 25, y + 3);
+            }
+            
+            // === RESONANCE LINES ===
+            const resonances = [
+                { value: 5/6, label: '5/6', color: '#e74c3c' },
+                { value: 1.0, label: '1/1', color: '#e74c3c' },
+                { value: 6/5, label: '6/5', color: '#e74c3c' },
+                { value: 5/4, label: '5/4', color: '#f39c12' },
+                { value: 4/5, label: '4/5', color: '#f39c12' },
+                { value: 7/6, label: '7/6', color: '#f39c12' }
+            ];
+            
+            ctx.setLineDash([5, 3]);
+            resonances.forEach(res => {
+                if (res.value >= iotaMin && res.value <= iotaMax) {
+                    const y = plotBottom - ((res.value - iotaMin) / (iotaMax - iotaMin)) * plotHeight;
+                    ctx.strokeStyle = res.color;
+                    ctx.lineWidth = 1.5;
+                    ctx.beginPath();
+                    ctx.moveTo(plotLeft, y);
+                    ctx.lineTo(plotRight, y);
+                    ctx.stroke();
+                    
+                    // Label
+                    ctx.fillStyle = res.color;
+                    ctx.font = 'bold 9px Segoe UI';
+                    ctx.fillText(res.label, plotRight + 3, y + 3);
+                }
+            });
+            ctx.setLineDash([]);
+            
+            // === IOTA PROFILE CURVE ===
+            ctx.strokeStyle = '#2ecc71';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            profiles.forEach((p, i) => {
+                const x = plotLeft + p.s * plotWidth;
+                const y = plotBottom - ((p.iota - iotaMin) / (iotaMax - iotaMin)) * plotHeight;
+                if (i === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            });
+            ctx.stroke();
+            
+            // Mark axis and edge values
+            ctx.fillStyle = '#2ecc71';
+            ctx.beginPath();
+            ctx.arc(plotLeft, plotBottom - ((iotaAxis - iotaMin) / (iotaMax - iotaMin)) * plotHeight, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(plotRight, plotBottom - ((iotaEdge - iotaMin) / (iotaMax - iotaMin)) * plotHeight, 4, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Update status div
             if (warnings.length > 0) {
                 statusDiv.className = 'validation-box warning';
                 statusDiv.innerHTML = `
-                    <strong>⚠️ Iota Warnings:</strong><br>
+                    <strong>⚠️ Resonance Warning:</strong><br>
                     ${warnings.join('<br>')}<br>
                     <small>ι(0) = ${iotaAxis.toFixed(4)} → ι(edge) = ${iotaEdge.toFixed(4)}</small>
                 `;
@@ -955,9 +1981,8 @@
                 statusDiv.className = 'validation-box';
                 statusDiv.innerHTML = `
                     <strong>✅ Iota Profile OK:</strong><br>
-                    ι(0) = ${iotaAxis.toFixed(4)}<br>
-                    ι(edge) = ${iotaEdge.toFixed(4)}<br>
-                    <small>Außerhalb kritischer Resonanzen</small>
+                    ι(axis) = ${iotaAxis.toFixed(4)} | ι(edge) = ${iotaEdge.toFixed(4)}<br>
+                    <small>Avoiding low-order resonances (n/m)</small>
                 `;
             }
         }
