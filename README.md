@@ -195,8 +195,9 @@ Before injecting plasma, the following diagnostic setup is mandatory to ensure m
 
 We explicitly invite physicists to export the coil data from `/cad` and run it through:
 
-- **VMEC** (Variational Moments Equilibrium Code)
-- **SPEC** (Stepped Pressure Equilibrium Code)
+* **Direct Data Access:** [GEOMETRY_SPEC.md](./docs/engineering/GEOMETRY_SPEC.md)
+* **Target Codes:** VMEC, SPEC, GENE, Stella.
+* **Collaboration:** Please post your results in the [Validation Thread (Issue #1)](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
 
 ### Key Research Questions
 
@@ -216,7 +217,7 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 | [Technical Memorandum](Technical%20Memorandum.md) | Mathematical proof of dual-representation framework (Geometric vs. Spectral approach) |
 | [Engineering Spec](docs/engineering) | B-N-C Metamaterial specifications |
 | [Simulation](simulation/Simulation_HexaHelix.html) | Interactive 3D visualization |
-
+| [Geometry Specs](./docs/engineering/GEOMETRY_SPEC.md) | Direct Data Access |
 ---
 
 ## 📜 License
