@@ -204,15 +204,9 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 - **Hardware/Geometry Designs:** Released under the [CERN Open Hardware Licence Version 2 - Weakly Reciprocal (CERN-OHL-W-2.0)](https://ohwr.org/cernohl).
 - **Software/Simulation Code:** Released under the MIT License.
 
-> "The Beauty of Logic aligns perfectly with the Hard Physics of MHD stabilization."
-
 ---
 
 ## ✉️ Contact & Citation
 
 **Author:** Hagen Loehrmann  
 **Project Link:** [https://github.com/Haegar1601/hexa-helix-stellarator](https://github.com/Haegar1601/hexa-helix-stellarator)
-
----
-
-> **"Truth is what remains when all logical contradictions have been removed."**
