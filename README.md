@@ -46,12 +46,19 @@ We hypothesize that the most stable magnetic path aligns with the **Kelvin Cell*
 
 - **Design Rationale:** The AI algorithm utilized the Kelvin-partitioning of the toroidal volume as a guide for the coil winding path. By aligning the magnetic field periodicity with the hexagonal faces of this theoretical lattice, the design aims to minimize flux surface distortion and optimize volumetric field efficiency.
 
-### 4. The "Breathing Mode" (Speculative Extension) & Turbulence Neutralization 
+### 4. Breathing Mode Hypothesis (Highly Speculative Extension)
 
-To address the challenge of local and non-local turbulence coexistence, this model utilizes a dynamic radial modulation known as the **"Breathing Mode"**.
+**Note:** This section explores a highly speculative idea inspired by observed turbulence dynamics and external concepts. It is not grounded in direct simulations or experimental evidence for this geometry and requires rigorous validation (e.g., gyrokinetic codes like GENE or Stella).
 
-- **Energetic Solution:** Specific vibration frequencies are applied to increase energy density and heating efficiency within the plasma.
-- **Harmonic Resonance:** The $N=6$ geometry provides a stable framework where these frequencies can neutralize turbulence through destructive interference.
+Recent experiments on the Large Helical Device (LHD) have directly observed the coexistence of local (high-k) and nonlocal (low-frequency) turbulence, with modulated heating influencing their balance and spatial coupling [Kenmochi et al., Commun. Phys. 8, 354 (2025)](https://www.nature.com/articles/s42005-025-02454-x).
+
+Building loosely on this and concepts like oscillating fields for plasma compression/heating (e.g., NT-Tao's pulsed high-frequency approach):
+
+- The secondary radial modulation (ϵ₂ ≈ 0.03) introduces a **dynamic "Breathing Mode" hypothesis** – a periodic radial variation intended to mimic transient effects.
+- **Speculative Mechanism:** Applied vibration frequencies or harmonic excitations could potentially shift turbulence regimes, increasing energy density and heating efficiency.
+- **Further Speculation:** The N=6 symmetry might enable resonance effects (e.g., destructive interference-like filtering of certain turbulence modes), but this is purely hypothetical and untested.
+
+This remains a conceptual exploration – community simulations (e.g., turbulence transport via GK codes) are explicitly invited in the [Validation Thread](https://github.com/Haegar1601/hexa-helix-stellarator/issues/1).
 
 ---
 
