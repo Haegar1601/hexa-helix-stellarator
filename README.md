@@ -131,7 +131,7 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 
 - **Golden Ratio Twist ($\phi \approx 0.618$):** The twist amount has been optimized to the Golden Ratio for maximum interlacing efficiency.
 - **Kelvin Resonance ($\epsilon_2 \approx 0.03$):** Added a second harmonic modulation to couple the magnetic field to the underlying spatial grid.
-- **High-Purity $N=10$ Turns:** Increased default turns to 10 to ensure a cleaner $n=6$ spectrum for professional VMEC validation.
+- **High-Purity $N=8$ Turns:** Optimized to 8 turns for balanced $n=6$ spectrum integrity and reduced mechanical complexity.
 
 ---
 
