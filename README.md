@@ -46,7 +46,7 @@ We hypothesize that the most stable magnetic path aligns with the **Kelvin Cell*
 
 - **Design Rationale:** The AI algorithm utilized the Kelvin-partitioning of the toroidal volume as a guide for the coil winding path. By aligning the magnetic field periodicity with the hexagonal faces of this theoretical lattice, the design aims to minimize flux surface distortion and optimize volumetric field efficiency.
 
-### 4. The "Breathing Mode" Hypothesis & Turbulence Neutralization 
+### 4. The "Breathing Mode" (Speculative Extension) & Turbulence Neutralization 
 
 To address the challenge of local and non-local turbulence coexistence, this model utilizes a dynamic radial modulation known as the **"Breathing Mode"**.
 
@@ -123,7 +123,7 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 
 ## 🏭 Engineering & Scalability
 
-This project goes beyond geometric theory. We are exploring scalable manufacturing pathways using **B-N-C doped Metamaterials** (Hypothesis).
+This project goes beyond geometric theory. We are exploring scalable manufacturing pathways using **B-N-C doped Metamaterials** (Speculative Extension).
 
 📄 View the Engineering Specification: [HexaHelix B-N-C Spec Sheet](docs/engineering)
 
