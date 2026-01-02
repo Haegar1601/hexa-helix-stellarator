@@ -123,7 +123,7 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 
 ## 🏭 Engineering & Scalability
 
-This project goes beyond geometric theory. We are exploring scalable manufacturing pathways using **B-N-C doped Metamaterials**.
+This project goes beyond geometric theory. We are exploring scalable manufacturing pathways using **B-N-C doped Metamaterials** (Hypothesis).
 
 📄 View the Engineering Specification: [HexaHelix B-N-C Spec Sheet](docs/engineering)
 
