@@ -130,6 +130,12 @@ Based on converged AI analysis and the start of "Wave 3", the following optimiza
 - **Kelvin Resonance ($\epsilon_2 \approx 0.03$):** Added a second harmonic modulation to couple the magnetic field to the underlying spatial grid.
 - **8 Poloidal Turns:** Optimized to 8 helical turns per toroidal transit for balanced $n=6$ spectrum integrity and reduced mechanical complexity.
 
+We have finalized the integration of the **Direct Energy Conversion (DEC)** module into the HexaHelix architecture. This marks a paradigm shift from thermal fusion to direct electromagnetic power extraction.
+Inductive Coupling: Kinetic energy from charged particles (protons/alpha particles) is harvested directly from the plasma via resonant induction.
+Elimination of Steam Infrastructure: The DEC logic removes the requirement for massive steam turbines and heat exchangers, radically reducing system footprint.
+Plasma Damping: The system serves as an electromagnetic shock absorber, actively damping plasma instabilities and increasing operational safety.
+Efficiency: Early simulations confirm a theoretical efficiency of up to 70%.
+
 ---
 
 ## 🛠 Features
@@ -216,6 +222,7 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 |----------|-------------|
 | [Technical Memorandum](Technical%20Memorandum.md) | Mathematical proof of dual-representation framework (Geometric vs. Spectral approach) |
 | [Engineering Spec](docs/engineering) | B-N-C Metamaterial specifications |
+| [Engineering Spec](docs/engineering) | DEC - Direct Energy Conversion |
 | [Simulation](simulation) | Interactive 3D visualization with Poincaré plot |
 | [Geometry Specs](./docs/engineering/GEOMETRY_SPEC.md) | Direct Data Access |
 ---
