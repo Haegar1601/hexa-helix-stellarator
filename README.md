@@ -134,7 +134,7 @@ We have finalized the integration of the **Direct Energy Conversion (DEC)** modu
 Inductive Coupling: Kinetic energy from charged particles (protons/alpha particles) is harvested directly from the plasma via resonant induction.
 Elimination of Steam Infrastructure: The DEC logic removes the requirement for massive steam turbines and heat exchangers, radically reducing system footprint.
 Plasma Damping: The system serves as an electromagnetic shock absorber, actively damping plasma instabilities and increasing operational safety.
-Efficiency: Early simulations confirm a theoretical efficiency of up to 70%.
+Efficiency: Early simulations confirm a theoretical efficiency of up to 70%. [Direct Energy Conversion (DEC)](docs/engineering/HexaHelix_DEC.pdf)
 
 ---
 
