@@ -222,11 +222,13 @@ To "reactivate" the logical depth of this project in a new AI session, provide t
 
 | Document | Description |
 |----------|-------------|
+| [hexa_helix_stellarator_v5.pdf](paper/hexa_helix_stellarator_v5.pdf) | New Whitepaper v5 |
 | [Technical Memorandum](Technical%20Memorandum.md) | Mathematical proof of dual-representation framework (Geometric vs. Spectral approach) |
 | [Engineering Spec](docs/engineering) | B-N-C Metamaterial specifications |
 | [Engineering Spec](docs/engineering) | DEC - Direct Energy Conversion |
 | [Simulation](simulation) | Interactive 3D visualization with Poincaré plot |
 | [Geometry Specs](./docs/engineering/GEOMETRY_SPEC.md) | Direct Data Access |
+
 ---
 
 ## 📜 License
