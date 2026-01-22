@@ -136,6 +136,8 @@ Elimination of Steam Infrastructure: The DEC logic removes the requirement for m
 Plasma Damping: The system serves as an electromagnetic shock absorber, actively damping plasma instabilities and increasing operational safety.
 Efficiency: Early simulations confirm a theoretical efficiency of up to 70%. [Direct Energy Conversion (DEC)](docs/engineering/HexaHelix_DEC.pdf)
 
+New Whitepaper incl. Advanced Fuel Cycle: p-¹¹B with Cyclotron-Resonant Laser Assist: [hexa_helix_stellarator_v5.pdf](paper/hexa_helix_stellarator_v5.pdf)
+
 ---
 
 ## 🛠 Features
