@@ -44,11 +44,35 @@ By utilizing a 6-fold symmetry, the geometry acts as a natural **band-pass filte
 1.  **Constructive Interference:** The $n=6$ fundamental mode is amplified.
 2.  **Destructive Interference:** Lower-order harmonics ($n < 6$) that typically cause resonance-induced transport are suppressed by the phase-locked offset of the interlaced helices.
 
+---
 
+## 4. Active Resonance Detuning & The Software-Defined Stellarator
+
+### 4.1 The Symmetry Paradox
+While the HexaHelix architecture relies on strict $N=6$ geometric symmetry for mechanical rigidity, manufacturing simplicity, and fault-tolerant coil design, high-precision field-line tracing simulations reveal a critical limitation of perfect harmonic symmetry:
+
+In a purely symmetric $N=6$ toroidal field, magnetic field lines on rational flux surfaces (where the rotational transform $\iota = n/m$ is rational) experience constructive interference. This leads to the formation of magnetic islands and partial ergodicity in the plasma core, resulting in increased radial deviation (std_R $\approx 1.7 \times 10^{-3}$ in baseline symmetric simulations).
+
+### 4.2 The "Jitter" Protocol (Algorithmically Defined Asymmetry)
+To suppress these resonances without modifying the physical hardware, we introduce **Active Resonance Detuning** through the coil power supply controllers. By applying small, non-harmonic phase offsets ("Phase Jitter" $\approx 1.2^\circ$) and amplitude modulations ($\pm 3-4\%$), we create a software-defined magnetic topology that breaks destructive interference patterns on rational surfaces.
+
+**Mechanism**: The controlled asymmetry acts as a dynamic dampener for magnetic island formation, effectively smoothing flux surfaces and reducing neoclassical transport.
+
+**Results**: Simulations show dramatic stabilization of the plasma core (reduction of radial deviation std_R from $\sim 10^{-3}$ to $\sim 10^{-6}$ on inner flux surfaces, with average improvement across nested surfaces of 45–55%). Edge surfaces remain stable, albeit with slightly increased deviation – a trade-off that is typical and manageable in quasi-isodynamic designs.
+
+**Analogy**: Similar to the Weaire-Phelan foam structure, where slight geometric irregularities achieve ~0.3% better surface minimization than Kelvin's perfect solution, our "Jitter Protocol" minimizes magnetic field energy and anomalous transport losses through controlled deviation from ideal symmetry.
+
+### 4.3 The Hardware-Software Split
+This insight enables a powerful architectural decoupling:
+
+- **Hardware Layer** (Georg/THEVA collaboration): The physical coil system remains strictly symmetrical ($N=6$ HexaHelix continuous helical geometry). This ensures cost-efficiency, uniform mechanical stress distribution, ease of manufacturing, and inherent fault tolerance (e.g., single-coil failure degrades gracefully).
+- **Control Layer** (Software): Quasi-isodynamic (QI) properties, resonance suppression, and optimal confinement are achieved entirely through modulation algorithms running on the power supply controllers. Manufacturing imperfections or coil-to-coil variations are not treated as defects; instead, they are measured and actively integrated into the asymmetry profile to further enhance field stability.
+
+**Conclusion**: The HexaHelix is not merely a static magnet geometry; it is a **dynamic, software-tuned metamaterial system**. By orchestrating rather than fighting real-world imperfections, we achieve confinement quality approaching that of highly complex optimized stellarators (e.g., Wendelstein 7-X) while retaining the manufacturing simplicity of continuous planar-like tape-wound coils.
 
 ---
 
-## 4. Engineering & Strategic Advantages
+## 5. Engineering & Strategic Advantages
 
 | Aspect | Geometric Approach (HHS) | Conventional "Single Mode" |
 | :--- | :--- | :--- |
@@ -58,7 +82,7 @@ By utilizing a 6-fold symmetry, the geometry acts as a natural **band-pass filte
 
 ---
 
-## 5. Conclusion for External Validation
+## 6. Conclusion for External Validation
 The Hexa-Helix Stellarator is not a departure from classical plasma physics but a **geometrically optimized implementation** of a rotating magnetic perturbation. By using the "Interlaced Helix" topology, we achieve:
 
 * **Intrinsic filtering** of magnetic field purity through geometric symmetry.
