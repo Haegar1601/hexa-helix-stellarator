@@ -65,7 +65,7 @@ To suppress these resonances without modifying the physical hardware, we introdu
 ### 4.3 The Hardware-Software Split
 This insight enables a powerful architectural decoupling:
 
-- **Hardware Layer** (Georg/THEVA collaboration): The physical coil system remains strictly symmetrical ($N=6$ HexaHelix continuous helical geometry). This ensures cost-efficiency, uniform mechanical stress distribution, ease of manufacturing, and inherent fault tolerance (e.g., single-coil failure degrades gracefully).
+- **Hardware Layer** (Industry collaboration): The physical coil system remains strictly symmetrical ($N=6$ HexaHelix continuous helical geometry). This ensures cost-efficiency, uniform mechanical stress distribution, ease of manufacturing, and inherent fault tolerance (e.g., single-coil failure degrades gracefully).
 - **Control Layer** (Software): Quasi-isodynamic (QI) properties, resonance suppression, and optimal confinement are achieved entirely through modulation algorithms running on the power supply controllers. Manufacturing imperfections or coil-to-coil variations are not treated as defects; instead, they are measured and actively integrated into the asymmetry profile to further enhance field stability.
 
 **Conclusion**: The HexaHelix is not merely a static magnet geometry; it is a **dynamic, software-tuned metamaterial system**. By orchestrating rather than fighting real-world imperfections, we achieve confinement quality approaching that of highly complex optimized stellarators (e.g., Wendelstein 7-X) while retaining the manufacturing simplicity of continuous planar-like tape-wound coils.
