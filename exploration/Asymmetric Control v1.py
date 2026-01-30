@@ -82,15 +82,12 @@ print("\nVERGLEICH Symmetric vs. Asymmetric")
 print(f"{'Surface':<10} {'Symmetric':<18} {'Asymmetric':<18} {'Change %':<12}")
 print("-"*58)
 
-total_change = 0
+total_change = 0.0
 for sym, asym in zip(results_sym, results_asym):
-    change = (asym ...
-    print(f"{sym['surface']:<10} {sym['std_total']:<18.6e} {asym['std_total']:<18.6e} {change:+.2f}")
+    change = (asym['std_total'] - sym['std_total']) / (sym['std_total'] + 1e-10) * 100
+    total_change += change
+    print(f"{sym['surface']:<10} {sym['std_total']:<18.6e} {asym['std_total']:<18.6e} {change:+.2f}%")
 
-avg = total_change / len(results_sym)
+avg_change = total_change / len(results_sym)
 print("-"*58)
-print(f"Average Improvement: {avg:+.2f}% (negativ = besser)")
-
-# Optional: Plotting (lokal ausführen)
-# import matplotlib.pyplot as plt
-# ... (Plot-Code wie zuvor, für beide Fälle)
+print(f"Average Improvement: {avg_change:+.2f}% (negative = better confinement)")
