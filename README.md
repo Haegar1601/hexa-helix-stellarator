@@ -68,7 +68,7 @@ High-precision simulations revealed a **Symmetry Paradox**: Perfect $N=6$ harmon
 
 **Key Insight:** Hardware remains strictly symmetric (simple manufacturing), all optimization happens in the control software.
 
-📄 **Simulation Code:** [exploration/poincare_jitter.py](exploration/poincare_jitter.py)
+📄 **Simulation Code:** [exploration/poincare_jitter.py](exploration)
 
 **Analogy:** Similar to the Weaire-Phelan foam structure, where slight geometric irregularities achieve ~0.3% better surface minimization than Kelvin's perfect solution, our "Jitter Protocol" minimizes magnetic field energy through controlled deviation from ideal symmetry.
 
