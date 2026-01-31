@@ -227,7 +227,7 @@ We invite researchers and physicists to utilize this dual-representation for cro
 
 ---
 
-**Note:** This document serves as a bridge between high-level architectural design and formal plasma physics verification. The AI-assisted insights (marked with Grok 4.1 quotes) have been validated through independent simulations and cross-checked across multiple AI systems (Claude, Grok, Gemini) for consistency.
+**Note:** This document serves as a bridge between high-level architectural design and formal plasma physics verification. The AI-assisted insights have been validated through independent simulations and cross-checked across multiple AI systems (Claude, Grok, Gemini) for consistency.
 
 ---
 
